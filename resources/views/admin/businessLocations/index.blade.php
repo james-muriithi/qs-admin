@@ -35,6 +35,12 @@
                             {{ trans('cruds.businessLocation.fields.coordinates') }}
                         </th>
                         <th>
+                            {{ trans('cruds.businessLocation.fields.polygon') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.businessLocation.fields.status') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.businessLocation.fields.qr') }}
                         </th>
                         <th>
@@ -61,7 +67,13 @@
                                 {{ $businessLocation->coordinates ?? '' }}
                             </td>
                             <td>
-                                <img class="img-thumbnail" src="{{asset('storage/uploads/'.$businessLocation->qr)}}">
+                                {{ $businessLocation->polygon ?? '' }}
+                            </td>
+                            <td>
+                                {{ $businessLocation->status ?? '' }}
+                            </td>
+                            <td>
+                                <img class="img-thumbnail" height="40" width="40" src="{{asset('storage/uploads/'.$businessLocation->qr)}}">
                             </td>
                             <td>
                                 @can('business_location_show')

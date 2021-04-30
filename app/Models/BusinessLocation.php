@@ -28,6 +28,8 @@ class BusinessLocation extends Model
         'bs_id',
         'coordinates',
         'qr',
+        'polygon',
+        'status',
         'created_at',
         'updated_at',
         'deleted_at',

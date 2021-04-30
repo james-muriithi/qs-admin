@@ -137,7 +137,7 @@ class HomeController
             $settings4['total_number'] = $settings4['model']::when(isset($settings4['filter_field']), function ($query) use ($settings4) {
                 if (isset($settings4['filter_days'])) {
                     return $query->where($settings4['filter_field'], '>=',
-                now()->subDays($settings4['filter_days'])->format('Y-m-d'));
+                today()->format('Y-m-d'));
                 }
                 if (isset($settings4['filter_period'])) {
                     switch ($settings4['filter_period']) {

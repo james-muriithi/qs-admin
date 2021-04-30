@@ -38,6 +38,9 @@ class BusinessLocationController extends Controller
 
     public function store(StoreBusinessLocationRequest $request)
     {
+        if ($request->has('polygon')){
+            $request->merge(['polygon' => implode(' ', $request->input('polygon')) ]);
+        }
         $businessLocation = BusinessLocation::create($request->all());
 
         return redirect()->route('admin.business-locations.index');
@@ -49,13 +52,17 @@ class BusinessLocationController extends Controller
 
         $bsids = BusinessAccount::all()->pluck('BS_Name', 'BS_ID')->prepend(trans('global.pleaseSelect'), '');
 
-        $businessLocation->load('bsid');
+        $businessLocation->load('business');
 
         return view('admin.businessLocations.edit', compact('bsids', 'businessLocation'));
     }
 
     public function update(UpdateBusinessLocationRequest $request, BusinessLocation $businessLocation)
     {
+        if ($request->has('polygon')){
+            $request->merge(['polygon' => implode(' ', $request->input('polygon')) ]);
+        }
+
         $businessLocation->update($request->all());
 
         return redirect()->route('admin.business-locations.index');

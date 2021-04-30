@@ -28,6 +28,10 @@ class StoreBusinessLocationRequest extends FormRequest
             'qr' => [
                 'required',
             ],
+            'polygon' => [
+                'nullable',
+                'array'
+            ]
         ];
     }
 }

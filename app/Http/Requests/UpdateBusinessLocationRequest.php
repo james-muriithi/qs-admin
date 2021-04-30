@@ -25,6 +25,10 @@ class UpdateBusinessLocationRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'polygon' => [
+                'nullable',
+                'array'
+            ]
         ];
     }
 }
