@@ -124,8 +124,8 @@ class HomeController
             'group_by_field'        => 'date',
             'group_by_period'       => 'day',
             'aggregate_function'    => 'count',
-            'filter_field'          => 'created_at',
-            'filter_days'           => '7',
+            'filter_field'          => 'date',
+            'filter_days'           => '1',
             'group_by_field_format' => 'Y-m-d',
             'column_class'          => 'col-md-3',
             'entries_number'        => '5',
@@ -158,12 +158,12 @@ class HomeController
             'chart_type'         => 'bar',
             'report_type'        => 'group_by_relationship',
             'model'              => 'App\Models\Employee',
-            'group_by_field'     => 'bs_name',
+            'group_by_field'     => 'BS_ID',
             'aggregate_function' => 'count',
             'filter_field'       => 'created_at',
             'column_class'       => 'col-md-12',
             'entries_number'     => '5',
-            'relationship_name'  => 'bsid',
+            'relationship_name'  => 'organisation',
             'translation_key'    => 'employee',
         ];
 
@@ -177,25 +177,25 @@ class HomeController
             'group_by_field'        => 'timestamp',
             'group_by_period'       => 'day',
             'aggregate_function'    => 'count',
-            'filter_field'          => 'created_at',
+            'filter_field'          => 'timestamp',
             'group_by_field_format' => 'Y-m-d H:i:s',
             'column_class'          => 'col-md-12',
             'entries_number'        => '10',
             'fields'                => [
-                'employeeid'  => '',
-                'bsid'        => 'bs_name',
+                'emp_id'  => '',
+                'organisation'=> 'BS_Name',
                 'name'        => '',
                 'department'  => '',
                 'designation' => '',
-                'genid'       => '',
-                'created_at'  => '',
+                'GenId'       => '',
+                'timestamp'  => '',
             ],
             'translation_key' => 'employee',
         ];
 
         $settings6['data'] = [];
         if (class_exists($settings6['model'])) {
-            $settings6['data'] = $settings6['model']::latest()
+            $settings6['data'] = $settings6['model']::orderBy('timestamp', 'DESC')
                 ->take($settings6['entries_number'])
                 ->get();
         }

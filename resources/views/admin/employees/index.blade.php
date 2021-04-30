@@ -30,7 +30,13 @@
                             {{ trans('cruds.employee.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.employee.fields.employeeid') }}
+                            {{ trans('cruds.employee.fields.emp_id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.employee.fields.name') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.employee.fields.genid') }}
                         </th>
                         <th>
                             {{ trans('cruds.employee.fields.bsid') }}
@@ -39,16 +45,10 @@
                             {{ trans('cruds.businessAccount.fields.bsid') }}
                         </th>
                         <th>
-                            {{ trans('cruds.employee.fields.name') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.employee.fields.department') }}
                         </th>
                         <th>
                             {{ trans('cruds.employee.fields.designation') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.employee.fields.potraits') }}
                         </th>
                         <th>
                             {{ trans('cruds.employee.fields.contact') }}
@@ -57,13 +57,7 @@
                             {{ trans('cruds.employee.fields.email') }}
                         </th>
                         <th>
-                            {{ trans('cruds.employee.fields.password') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.employee.fields.gender') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.employee.fields.genid') }}
                         </th>
                         <th>
                             &nbsp;
@@ -77,19 +71,22 @@
 
                             </td>
                             <td>
-                                {{ $employee->id ?? '' }}
+                                {{ $loop->index }}
                             </td>
                             <td>
-                                {{ $employee->employeeid ?? '' }}
-                            </td>
-                            <td>
-                                {{ $employee->bsid->bs_name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $employee->bsid->bsid ?? '' }}
+                                {{ $employee->emp_id ?? '' }}
                             </td>
                             <td>
                                 {{ $employee->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $employee->genid ?? '' }}
+                            </td>
+                            <td>
+                                {{ $employee->organisation->BS_Name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $employee->organisation->BS_ID ?? '' }}
                             </td>
                             <td>
                                 {{ $employee->department ?? '' }}
@@ -98,22 +95,13 @@
                                 {{ $employee->designation ?? '' }}
                             </td>
                             <td>
-                                {{ $employee->potraits ?? '' }}
-                            </td>
-                            <td>
                                 {{ $employee->contact ?? '' }}
                             </td>
                             <td>
                                 {{ $employee->email ?? '' }}
                             </td>
                             <td>
-                                {{ $employee->password ?? '' }}
-                            </td>
-                            <td>
                                 {{ App\Models\Employee::GENDER_SELECT[$employee->gender] ?? '' }}
-                            </td>
-                            <td>
-                                {{ $employee->genid ?? '' }}
                             </td>
                             <td>
                                 @can('employee_show')
@@ -194,7 +182,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>

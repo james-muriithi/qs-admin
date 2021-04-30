@@ -28,7 +28,7 @@
                             {{ trans('cruds.attendance.fields.bsid') }}
                         </th>
                         <td>
-                            {{ $attendance->bsid->bsid ?? '' }}
+                            {{ $attendance->bsid->BS_ID ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -36,7 +36,7 @@
                             {{ trans('cruds.attendance.fields.employeeid') }}
                         </th>
                         <td>
-                            {{ $attendance->employeeid->employeeid ?? '' }}
+                            {{ $attendance->employee->emp_id ?? '' }}
                         </td>
                     </tr>
                     <tr>

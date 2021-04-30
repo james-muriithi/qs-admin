@@ -11,16 +11,6 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label class="required" for="name">{{ trans('cruds.businessLocation.fields.name') }}</label>
-                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $businessLocation->name) }}" required>
-                @if($errors->has('name'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('name') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.businessLocation.fields.name_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label for="bsid_id">{{ trans('cruds.businessLocation.fields.bsid') }}</label>
                 <select class="form-control select2 {{ $errors->has('bsid') ? 'is-invalid' : '' }}" name="bsid_id" id="bsid_id">
                     @foreach($bsids as $id => $entry)
@@ -33,6 +23,16 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.businessLocation.fields.bsid_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="name">{{ trans('cruds.businessLocation.fields.name') }}</label>
+                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $businessLocation->name) }}" required>
+                @if($errors->has('name'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('name') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.businessLocation.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="coordinates">{{ trans('cruds.businessLocation.fields.coordinates') }}</label>

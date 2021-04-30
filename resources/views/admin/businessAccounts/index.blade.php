@@ -41,9 +41,6 @@
                             {{ trans('cruds.businessAccount.fields.bs_email') }}
                         </th>
                         <th>
-                            {{ trans('cruds.businessAccount.fields.bs_logo') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.businessAccount.fields.bs_industry') }}
                         </th>
                         <th>
@@ -59,7 +56,7 @@
                 </thead>
                 <tbody>
                     @foreach($businessAccounts as $key => $businessAccount)
-                        <tr data-entry-id="{{ $businessAccount->id }}">
+                        <tr data-entry-id="{{ $loop->index }}">
                             <td>
 
                             </td>
@@ -67,31 +64,28 @@
                                 {{ $businessAccount->id ?? '' }}
                             </td>
                             <td>
-                                {{ $businessAccount->bsid ?? '' }}
+                                {{ $businessAccount->BS_ID ?? '' }}
                             </td>
                             <td>
-                                {{ $businessAccount->bs_name ?? '' }}
+                                {{ $businessAccount->BS_Name ?? '' }}
                             </td>
                             <td>
-                                {{ $businessAccount->bs_location ?? '' }}
+                                {{ $businessAccount->BS_Location ?? '' }}
                             </td>
                             <td>
-                                {{ $businessAccount->bs_contact ?? '' }}
+                                {{ $businessAccount->BS_Contact ?? '' }}
                             </td>
                             <td>
-                                {{ $businessAccount->bs_email ?? '' }}
+                                {{ $businessAccount->BS_Email ?? '' }}
                             </td>
                             <td>
-                                {{ $businessAccount->bs_logo ?? '' }}
+                                {{ $businessAccount->BS_Industry ?? '' }}
                             </td>
                             <td>
-                                {{ $businessAccount->bs_industry ?? '' }}
+                                {{ $businessAccount->Employees ?? '' }}
                             </td>
                             <td>
-                                {{ $businessAccount->employees ?? '' }}
-                            </td>
-                            <td>
-                                {{ $businessAccount->date_created ?? '' }}
+                                {{ $businessAccount->Date_Created ?? '' }}
                             </td>
                             <td>
                                 @can('business_account_show')
@@ -164,7 +158,7 @@
 
   $.extend(true, $.fn.dataTable.defaults, {
     orderCellsTop: true,
-    order: [[ 1, 'desc' ]],
+    order: [[ 1, 'asc' ]],
     pageLength: 100,
   });
   let table = $('.datatable-BusinessAccount:not(.ajaxTable)').DataTable({ buttons: dtButtons })
@@ -172,7 +166,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>

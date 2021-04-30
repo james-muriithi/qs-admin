@@ -10,17 +10,12 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class BusinessLocation extends Model implements HasMedia
+class BusinessLocation extends Model
 {
     use SoftDeletes;
-    use InteractsWithMedia;
     use HasFactory;
 
     public $table = 'business_locations';
-
-    protected $appends = [
-        'qr',
-    ];
 
     protected $dates = [
         'created_at',
@@ -30,34 +25,18 @@ class BusinessLocation extends Model implements HasMedia
 
     protected $fillable = [
         'name',
-        'bsid_id',
+        'bs_id',
         'coordinates',
+        'qr',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
-        $this->addMediaConversion('preview')->fit('crop', 120, 120);
-    }
 
-    public function bsid()
+    public function business()
     {
-        return $this->belongsTo(BusinessAccount::class, 'bsid_id');
-    }
-
-    public function getQrAttribute()
-    {
-        $file = $this->getMedia('qr')->last();
-        if ($file) {
-            $file->url       = $file->getUrl();
-            $file->thumbnail = $file->getUrl('thumb');
-            $file->preview   = $file->getUrl('preview');
-        }
-
-        return $file;
+        return $this->belongsTo(BusinessAccount::class, 'bs_id', 'BS_ID');
     }
 
     protected function serializeDate(DateTimeInterface $date)

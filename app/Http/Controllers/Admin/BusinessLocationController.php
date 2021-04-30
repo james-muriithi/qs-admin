@@ -10,8 +10,8 @@ use App\Http\Requests\UpdateBusinessLocationRequest;
 use App\Models\BusinessAccount;
 use App\Models\BusinessLocation;
 use Gate;
-use Illuminate\Http\Request;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 class BusinessLocationController extends Controller
@@ -22,7 +22,7 @@ class BusinessLocationController extends Controller
     {
         abort_if(Gate::denies('business_location_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $businessLocations = BusinessLocation::with(['bsid', 'media'])->get();
+        $businessLocations = BusinessLocation::with(['business'])->get();
 
         return view('admin.businessLocations.index', compact('businessLocations'));
     }
@@ -31,7 +31,7 @@ class BusinessLocationController extends Controller
     {
         abort_if(Gate::denies('business_location_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $bsids = BusinessAccount::all()->pluck('bsid', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $bsids = BusinessAccount::all()->pluck('BS_Name', 'BS_ID')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.businessLocations.create', compact('bsids'));
     }
@@ -40,14 +40,6 @@ class BusinessLocationController extends Controller
     {
         $businessLocation = BusinessLocation::create($request->all());
 
-        if ($request->input('qr', false)) {
-            $businessLocation->addMedia(storage_path('tmp/uploads/' . basename($request->input('qr'))))->toMediaCollection('qr');
-        }
-
-        if ($media = $request->input('ck-media', false)) {
-            Media::whereIn('id', $media)->update(['model_id' => $businessLocation->id]);
-        }
-
         return redirect()->route('admin.business-locations.index');
     }
 
@@ -55,7 +47,7 @@ class BusinessLocationController extends Controller
     {
         abort_if(Gate::denies('business_location_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $bsids = BusinessAccount::all()->pluck('bsid', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $bsids = BusinessAccount::all()->pluck('BS_Name', 'BS_ID')->prepend(trans('global.pleaseSelect'), '');
 
         $businessLocation->load('bsid');
 
@@ -65,17 +57,6 @@ class BusinessLocationController extends Controller
     public function update(UpdateBusinessLocationRequest $request, BusinessLocation $businessLocation)
     {
         $businessLocation->update($request->all());
-
-        if ($request->input('qr', false)) {
-            if (!$businessLocation->qr || $request->input('qr') !== $businessLocation->qr->file_name) {
-                if ($businessLocation->qr) {
-                    $businessLocation->qr->delete();
-                }
-                $businessLocation->addMedia(storage_path('tmp/uploads/' . basename($request->input('qr'))))->toMediaCollection('qr');
-            }
-        } elseif ($businessLocation->qr) {
-            $businessLocation->qr->delete();
-        }
 
         return redirect()->route('admin.business-locations.index');
     }
@@ -103,17 +84,5 @@ class BusinessLocationController extends Controller
         BusinessLocation::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    public function storeCKEditorImages(Request $request)
-    {
-        abort_if(Gate::denies('business_location_create') && Gate::denies('business_location_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $model         = new BusinessLocation();
-        $model->id     = $request->input('crud_id', 0);
-        $model->exists = true;
-        $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
-
-        return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
     }
 }

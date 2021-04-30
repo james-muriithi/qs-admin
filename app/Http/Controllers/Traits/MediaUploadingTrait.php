@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Traits;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 trait MediaUploadingTrait
 {
@@ -25,7 +26,7 @@ trait MediaUploadingTrait
             ]);
         }
 
-        $path = storage_path('tmp/uploads');
+        $path = Storage::disk('public')->path('uploads');
 
         try {
             if (!file_exists($path)) {

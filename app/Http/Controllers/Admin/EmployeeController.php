@@ -21,7 +21,7 @@ class EmployeeController extends Controller
     {
         abort_if(Gate::denies('employee_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $employees = Employee::with(['bsid'])->get();
+        $employees = Employee::with(['organisation'])->get();
 
         return view('admin.employees.index', compact('employees'));
     }
@@ -30,7 +30,7 @@ class EmployeeController extends Controller
     {
         abort_if(Gate::denies('employee_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $bsids = BusinessAccount::all()->pluck('bs_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $bsids = BusinessAccount::all()->pluck('BS_Name', 'BS_ID')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.employees.create', compact('bsids'));
     }
@@ -46,11 +46,11 @@ class EmployeeController extends Controller
     {
         abort_if(Gate::denies('employee_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $bsids = BusinessAccount::all()->pluck('bs_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $bsids = BusinessAccount::all()->pluck('BS_Name', 'BS_ID')->prepend(trans('global.pleaseSelect'), '');
 
         $employee->load('bsid');
 
-        return view('admin.employees.edit', compact('bsids', 'employee'));
+        return view('admin.employees.edit', compact('organisation', 'employee'));
     }
 
     public function update(UpdateEmployeeRequest $request, Employee $employee)
@@ -64,7 +64,7 @@ class EmployeeController extends Controller
     {
         abort_if(Gate::denies('employee_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $employee->load('bsid');
+        $employee->load('organisation');
 
         return view('admin.employees.show', compact('employee'));
     }

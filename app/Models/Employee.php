@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employee extends Model
 {
-    use SoftDeletes;
     use HasFactory;
 
     public const GENDER_SELECT = [
@@ -18,18 +17,20 @@ class Employee extends Model
         'Female' => 'Female',
     ];
 
+    public $hidden = [
+        'password'
+    ];
+
     public $table = 'employees';
 
     protected $dates = [
         'timestamp',
-        'created_at',
-        'updated_at',
-        'deleted_at',
     ];
+    public $timestamps = false;
 
     protected $fillable = [
-        'employeeid',
-        'bsid_id',
+        'emp_id',
+        'BS_ID',
         'name',
         'department',
         'designation',
@@ -39,15 +40,12 @@ class Employee extends Model
         'password',
         'timestamp',
         'gender',
-        'genid',
-        'created_at',
-        'updated_at',
-        'deleted_at',
+        'GenId'
     ];
 
-    public function bsid()
+    public function organisation()
     {
-        return $this->belongsTo(BusinessAccount::class, 'bsid_id');
+        return $this->belongsTo(BusinessAccount::class, 'BS_ID', 'BS_ID');
     }
 
     public function getTimestampAttribute($value)
@@ -58,6 +56,11 @@ class Employee extends Model
     public function setTimestampAttribute($value)
     {
         $this->attributes['timestamp'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
+    }
+
+    public function getPotraitsAttribute($value)
+    {
+        return $value ? explode('...', $value) : null;
     }
 
     protected function serializeDate(DateTimeInterface $date)

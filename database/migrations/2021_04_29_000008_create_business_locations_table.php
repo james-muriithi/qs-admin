@@ -10,8 +10,10 @@ class CreateBusinessLocationsTable extends Migration
     {
         Schema::create('business_locations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('bs_id');
             $table->string('name');
             $table->string('coordinates')->nullable();
+            $table->string('qr')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

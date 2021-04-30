@@ -42,9 +42,6 @@
                             {{ trans('cruds.attendance.fields.location') }}
                         </th>
                         <th>
-                            {{ trans('cruds.attendance.fields.area_info') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.attendance.fields.hours_in') }}
                         </th>
                         <th>
@@ -62,19 +59,19 @@
 
                             </td>
                             <td>
-                                {{ $attendance->id ?? '' }}
+                                {{ $loop->index }}
                             </td>
                             <td>
-                                {{ $attendance->bsid->bsid ?? '' }}
+                                {{ $attendance->bsid->BS_ID ?? '' }}
                             </td>
                             <td>
-                                {{ $attendance->bsid->bs_name ?? '' }}
+                                {{ $attendance->bsid->BS_Name ?? '' }}
                             </td>
                             <td>
-                                {{ $attendance->employeeid->employeeid ?? '' }}
+                                {{ $attendance->employee->emp_id ?? '' }}
                             </td>
                             <td>
-                                {{ $attendance->employeeid->name ?? '' }}
+                                {{ $attendance->employee->name ?? '' }}
                             </td>
                             <td>
                                 {{ $attendance->date ?? '' }}
@@ -85,11 +82,8 @@
                             <td>
                                 {{ $attendance->time_out ?? '' }}
                             </td>
-                            <td>
+                            <td title="{{$attendance->area_info}}">
                                 {{ $attendance->location ?? '' }}
-                            </td>
-                            <td>
-                                {{ $attendance->area_info ?? '' }}
                             </td>
                             <td>
                                 {{ $attendance->hours_in ?? '' }}
@@ -124,7 +118,7 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-  
+
   $.extend(true, $.fn.dataTable.defaults, {
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
@@ -135,7 +129,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>

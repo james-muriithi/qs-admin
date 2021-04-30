@@ -11,7 +11,7 @@ class BusinessAccount extends Model
 {
     use HasFactory;
 
-    public $table = 'business_accounts';
+    public $table = 'Business_Accounts';
 
     protected $hidden = [
         'access_code',
@@ -19,40 +19,30 @@ class BusinessAccount extends Model
 
     protected $dates = [
         'date_created',
-        'created_at',
-        'updated_at',
-        'deleted_at',
     ];
+
+    public $timestamps = false;
 
     protected $fillable = [
-        'bsid',
-        'bs_name',
-        'bs_location',
-        'bs_contact',
-        'bs_email',
-        'bs_logo',
-        'bs_industry',
-        'employees',
-        'access_code',
-        'date_created',
-        'created_at',
-        'updated_at',
-        'deleted_at',
+        'BS_ID',
+        'BS_Name',
+        'BS_Location',
+        'BS_Contact',
+        'BS_Email',
+        'BS_Logo',
+        'BS_Industry',
+        'BS_Employees',
+        'Access_Code',
     ];
 
-    public function bsidBusinessLocations()
+    public function BusinessLocations()
     {
-        return $this->hasMany(BusinessLocation::class, 'bsid_id', 'id');
+        return $this->hasMany(BusinessLocation::class, 'bs_id', 'BS_ID');
     }
 
     public function getDateCreatedAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
-    }
-
-    public function setDateCreatedAttribute($value)
-    {
-        $this->attributes['date_created'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 
     protected function serializeDate(DateTimeInterface $date)

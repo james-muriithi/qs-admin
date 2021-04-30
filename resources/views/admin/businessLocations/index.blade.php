@@ -55,17 +55,13 @@
                                 {{ $businessLocation->name ?? '' }}
                             </td>
                             <td>
-                                {{ $businessLocation->bsid->bsid ?? '' }}
+                                {{ $businessLocation->business->BS_Name ?? '' }}
                             </td>
                             <td>
                                 {{ $businessLocation->coordinates ?? '' }}
                             </td>
                             <td>
-                                @if($businessLocation->qr)
-                                    <a href="{{ $businessLocation->qr->getUrl() }}" target="_blank" style="display: inline-block">
-                                        <img src="{{ $businessLocation->qr->getUrl('thumb') }}">
-                                    </a>
-                                @endif
+                                <img class="img-thumbnail" src="{{asset('storage/uploads/'.$businessLocation->qr)}}">
                             </td>
                             <td>
                                 @can('business_location_show')
@@ -146,7 +142,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>

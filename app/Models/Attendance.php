@@ -11,18 +11,15 @@ class Attendance extends Model
 {
     use HasFactory;
 
-    public $table = 'attendances';
+    public $table = 'attendance';
 
     protected $dates = [
         'date',
-        'created_at',
-        'updated_at',
-        'deleted_at',
     ];
 
     protected $fillable = [
-        'bsid_id',
-        'employeeid_id',
+        'BS_ID',
+        'employee_id',
         'date',
         'time_in',
         'time_out',
@@ -31,19 +28,16 @@ class Attendance extends Model
         'area_info',
         'hours_in',
         'status',
-        'created_at',
-        'updated_at',
-        'deleted_at',
     ];
 
     public function bsid()
     {
-        return $this->belongsTo(BusinessAccount::class, 'bsid_id');
+        return $this->belongsTo(BusinessAccount::class, 'BS_ID', 'BS_ID');
     }
 
-    public function employeeid()
+    public function employee()
     {
-        return $this->belongsTo(Employee::class, 'employeeid_id');
+        return $this->belongsTo(Employee::class, 'employee_id', 'emp_id');
     }
 
     public function getDateAttribute($value)
