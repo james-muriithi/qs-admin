@@ -1,79 +1,41 @@
 @extends('layouts.app')
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card mx-4">
-            <div class="card-body p-4">
-                <h1>{{ trans('panel.site_title') }}</h1>
+    <div class="container-login100" style="background-image: url('images/Brance-Quick-Scan.jpg');">
+        <div class="wrap-login100 p-t-20 p-b-40">
+            <span class="login100-form-title p-b-20 d-none">  Welcome to Brance Prime </span>
+            <span class="login100-form-title p-b-41">
+					{{ trans('panel.site_title') }} Admin
+				</span>
+            <form class="login100-form validate-form p-b-33 p-t-5" action="{{ route('login') }}" method="POST">
+                @csrf
 
-                <p class="text-muted">{{ trans('global.login') }}</p>
-
-                @if(session('message'))
-                    <div class="alert alert-info" role="alert">
-                        {{ session('message') }}
+                @if($errors->any())
+                    <div class="row justify-content-center">
+                        <div class="col-10 alert alert-dismissible alert-danger">
+                            @foreach($errors->all() as $error)
+                                <p class="small">{{$error}}</p>
+                            @endforeach
+                        </div>
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
+                <div class="wrap-input100 validate-input" data-validate = "Enter Email">
+                    <input class="input100" type="text" name="email" class="username" placeholder="john@doe.com" autocomplete="off">
+                    <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="fa fa-user"></i>
-                            </span>
-                        </div>
+                <div class="wrap-input100 validate-input" data-validate="Enter password">
+                    <input class="input100" type="password" name="password" class="pass" placeholder="Password">
+                    <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                </div>
 
-                        <input id="email" name="email" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" required autocomplete="email" autofocus placeholder="{{ trans('global.login_email') }}" value="{{ old('email', null) }}">
+                <div class="container-login100-form-btn m-t-32">
+                    <button class="login100-form-btn" type="submit">
+                        Login
+                    </button>
+                </div>
 
-                        @if($errors->has('email'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('email') }}
-                            </div>
-                        @endif
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                        </div>
-
-                        <input id="password" name="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" required placeholder="{{ trans('global.login_password') }}">
-
-                        @if($errors->has('password'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('password') }}
-                            </div>
-                        @endif
-                    </div>
-
-                    <div class="input-group mb-4">
-                        <div class="form-check checkbox">
-                            <input class="form-check-input" name="remember" type="checkbox" id="remember" style="vertical-align: middle;" />
-                            <label class="form-check-label" for="remember" style="vertical-align: middle;">
-                                {{ trans('global.remember_me') }}
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <button type="submit" class="btn btn-primary px-4">
-                                {{ trans('global.login') }}
-                            </button>
-                        </div>
-                        <div class="col-6 text-right">
-                            @if(Route::has('password.request'))
-                                <a class="btn btn-link px-0" href="{{ route('password.request') }}">
-                                    {{ trans('global.forgot_password') }}
-                                </a><br>
-                            @endif
-
-                        </div>
-                    </div>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
-</div>
 @endsection

@@ -35,7 +35,7 @@ class BusinessAccount extends Model
         'Access_Code',
     ];
 
-    public function BusinessLocations()
+    public function businessLocations()
     {
         return $this->hasMany(BusinessLocation::class, 'bs_id', 'BS_ID');
     }

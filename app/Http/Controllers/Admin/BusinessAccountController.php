@@ -54,7 +54,7 @@ class BusinessAccountController extends Controller
     {
         abort_if(Gate::denies('business_account_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $businessAccount->load('bsidBusinessLocations');
+        $businessAccount->load('businessLocations');
 
         return view('admin.businessAccounts.show', compact('businessAccount'));
     }

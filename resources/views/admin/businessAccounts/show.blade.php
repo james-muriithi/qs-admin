@@ -28,7 +28,7 @@
                             {{ trans('cruds.businessAccount.fields.bsid') }}
                         </th>
                         <td>
-                            {{ $businessAccount->bsid }}
+                            {{ $businessAccount->BS_ID }}
                         </td>
                     </tr>
                     <tr>
@@ -36,7 +36,7 @@
                             {{ trans('cruds.businessAccount.fields.bs_name') }}
                         </th>
                         <td>
-                            {{ $businessAccount->bs_name }}
+                            {{ $businessAccount->BS_Name }}
                         </td>
                     </tr>
                     <tr>
@@ -44,7 +44,7 @@
                             {{ trans('cruds.businessAccount.fields.bs_location') }}
                         </th>
                         <td>
-                            {{ $businessAccount->bs_location }}
+                            {{ $businessAccount->BS_Location }}
                         </td>
                     </tr>
                     <tr>
@@ -52,7 +52,7 @@
                             {{ trans('cruds.businessAccount.fields.bs_contact') }}
                         </th>
                         <td>
-                            {{ $businessAccount->bs_contact }}
+                            {{ $businessAccount->BS_Contact }}
                         </td>
                     </tr>
                     <tr>
@@ -60,15 +60,7 @@
                             {{ trans('cruds.businessAccount.fields.bs_email') }}
                         </th>
                         <td>
-                            {{ $businessAccount->bs_email }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.businessAccount.fields.bs_logo') }}
-                        </th>
-                        <td>
-                            {{ $businessAccount->bs_logo }}
+                            {{ $businessAccount->BS_Email }}
                         </td>
                     </tr>
                     <tr>
@@ -76,7 +68,7 @@
                             {{ trans('cruds.businessAccount.fields.bs_industry') }}
                         </th>
                         <td>
-                            {{ $businessAccount->bs_industry }}
+                            {{ $businessAccount->BS_Industry }}
                         </td>
                     </tr>
                     <tr>
@@ -84,7 +76,7 @@
                             {{ trans('cruds.businessAccount.fields.employees') }}
                         </th>
                         <td>
-                            {{ $businessAccount->employees }}
+                            {{ $businessAccount->Employees }}
                         </td>
                     </tr>
                     <tr>
@@ -92,7 +84,7 @@
                             {{ trans('cruds.businessAccount.fields.date_created') }}
                         </th>
                         <td>
-                            {{ $businessAccount->date_created }}
+                            {{ $businessAccount->Date_Created }}
                         </td>
                     </tr>
                 </tbody>
@@ -119,7 +111,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="bsid_business_locations">
-            @includeIf('admin.businessAccounts.relationships.bsidBusinessLocations', ['businessLocations' => $businessAccount->bsidBusinessLocations])
+            @includeIf('admin.businessAccounts.relationships.bsidBusinessLocations', ['businessLocations' => $businessAccount->businessLocations])
         </div>
     </div>
 </div>
