@@ -29,6 +29,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Business Account
     Route::delete('business-accounts/destroy', 'BusinessAccountController@massDestroy')->name('business-accounts.massDestroy');
+    Route::post('business-accounts/media', 'BusinessAccountController@storeMedia')->name('business-accounts.storeMedia');
     Route::resource('business-accounts', 'BusinessAccountController');
 
     // Employee
