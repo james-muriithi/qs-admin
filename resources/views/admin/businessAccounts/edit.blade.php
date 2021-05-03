@@ -135,12 +135,14 @@
                 var file = {!! json_encode(['name' => $businessAccount->BS_Logo, 'preview' => $businessAccount->logoUrl,
         'file_name' => $businessAccount->BS_Logo
         ,'size' => filesize($businessAccount->logoFullPath)]) !!}
+                    this.options.resize(file, 200, 200)
                     this.options.addedfile.call(this, file)
                 this.options.thumbnail.call(this, file, file.preview)
-                console.log(this.options.thumbnail)
+
                 file.previewElement.classList.add('dz-complete')
                 $('form').append('<input type="hidden" name="BS_Logo" value="' + file.file_name + '">')
                 this.options.maxFiles = this.options.maxFiles - 1
+                $('.dz-image').last().find('img').attr({width: '120px', height: '120px'});
                 @endif
             },
             error: function (file, response) {

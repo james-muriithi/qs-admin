@@ -142,17 +142,18 @@
       }
     },
     init: function () {
-@if(isset($businessLocation) && $businessLocation->qr)
-      var file = {!! json_encode(['name' => $businessLocation->qr, 'preview' => asset('storage/uploads/'.$businessLocation->qr),
-        'file_name' => $businessLocation->qr
-        ,'size' => filesize(public_path('storage/uploads/'.$businessLocation->qr))]) !!}
-          this.options.addedfile.call(this, file)
-      this.options.thumbnail.call(this, file, file.preview)
-        console.log(this.options.thumbnail)
-      file.previewElement.classList.add('dz-complete')
-      $('form').append('<input type="hidden" name="qr" value="' + file.file_name + '">')
-      this.options.maxFiles = this.options.maxFiles - 1
-@endif
+        @if(isset($businessLocation) && $businessLocation->qr)
+              var file = {!! json_encode(['name' => $businessLocation->qr, 'preview' => asset('storage/uploads/'.$businessLocation->qr),
+                'file_name' => $businessLocation->qr
+                ,'size' => filesize(public_path('storage/uploads/'.$businessLocation->qr))]) !!}
+                  this.options.addedfile.call(this, file)
+              this.options.thumbnail.call(this, file, file.preview)
+                console.log(this.options.thumbnail)
+              file.previewElement.classList.add('dz-complete')
+              $('form').append('<input type="hidden" name="qr" value="' + file.file_name + '">')
+              this.options.maxFiles = this.options.maxFiles - 1
+                $('.dz-image').last().find('img').attr({width: '120px', height: '120px'});
+        @endif
     },
     error: function (file, response) {
         if ($.type(response) === 'string') {
