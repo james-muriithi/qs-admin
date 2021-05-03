@@ -49,7 +49,7 @@ class BusinessAccount extends Model
     public function getLogoFullPathAttribute()
     {
         $folder  = env('APP_ENV') == 'local' ? Storage::disk('public')->path('uploads').'/' :
-            '/home/oyaacoke/quickscan.brancetech.com/assets/img/logos';
+            '/home/oyaacoke/quickscan.brancetech.com/assets/img/logos/';
 
         if ($this->BS_Logo){
             return $folder.$this->BS_Logo;
@@ -60,7 +60,7 @@ class BusinessAccount extends Model
     public function getLogoUrlAttribute()
     {
         return env('APP_ENV') == 'local' ? asset('storage/uploads/'.$this->BS_Logo)
-            : 'https://quickscan.brancetech.com/assets/img/logos'.$this->BS_Logo;
+            : 'https://quickscan.brancetech.com/assets/img/logos/'.$this->BS_Logo;
     }
 
     protected function serializeDate(DateTimeInterface $date)
