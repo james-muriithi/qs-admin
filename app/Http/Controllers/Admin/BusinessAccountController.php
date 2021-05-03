@@ -32,7 +32,9 @@ class BusinessAccountController extends Controller
 
     public function store(StoreBusinessAccountRequest $request)
     {
-        $businessAccount = BusinessAccount::create($request->all());
+        $request->merge(['Access_Code' => sha1($request->input('Access_Code'))]);
+
+        BusinessAccount::create($request->all());
 
         return redirect()->route('admin.business-accounts.index');
     }
@@ -47,6 +49,23 @@ class BusinessAccountController extends Controller
     public function update(UpdateBusinessAccountRequest $request, BusinessAccount $businessAccount)
     {
         $businessAccount->update($request->all());
+
+        $folder = $path = env('APP_ENV') == 'local' ? Storage::disk('public')->path('uploads').'/' :
+            '/home/oyaacoke/quickscan.brancetech.com/assets/img/logos/';
+
+        if ($request->input('BS_Logo', false)) {
+            if (!$businessAccount->BS_Logo || $request->input('BS_Logo') !== $businessAccount->BS_Logo) {
+                if ($businessAccount->BS_Logo && file_exists($folder.$request->input('BS_Logo'))) {
+                    unlink($folder.$request->input('BS_Logo'));
+                }
+            }
+        }else{
+            if ($businessAccount->BS_Logo && file_exists($businessAccount->logoFullPath)) {
+                unlink($businessAccount->logoFullPath);
+                $businessAccount->BS_Logo = '';
+                $businessAccount->save();
+            }
+        }
 
         return redirect()->route('admin.business-accounts.index');
     }

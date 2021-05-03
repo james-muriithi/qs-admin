@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label for="bs_location">{{ trans('cruds.businessAccount.fields.bs_location') }}</label>
-                <input class="form-control {{ $errors->has('bs_location') ? 'is-invalid' : '' }}" type="text" name="bs_location" id="BS_Location" value="{{ old('BS_Location', '') }}">
+                <input class="form-control {{ $errors->has('bs_location') ? 'is-invalid' : '' }}" type="text" name="BS_Location" id="bs_location" value="{{ old('BS_Location', '') }}">
                 @if($errors->has('BS_Location'))
                     <div class="invalid-feedback">
                         {{ $errors->first('BS_Location') }}

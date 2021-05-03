@@ -100,7 +100,7 @@
                                     </a>
                                 @endcan
 
-                                @can('business_account_delete')
+                                @can('business_account_deletes')
                                     <form action="{{ route('admin.business-accounts.destroy', $businessAccount->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -126,7 +126,7 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('business_account_delete')
+@can('business_account_deletes')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,

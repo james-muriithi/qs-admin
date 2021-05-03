@@ -17,10 +17,10 @@ class UpdateEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'employeeid' => [
+            'emp_id' => [
                 'string',
                 'required',
-                'unique:employees,employeeid,' . request()->route('employee')->id,
+                'unique:employees,emp_id,' . request()->route('employee')->id,
             ],
             'name' => [
                 'string',

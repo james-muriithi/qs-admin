@@ -6,6 +6,7 @@ use \DateTimeInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class BusinessAccount extends Model
 {
@@ -31,7 +32,7 @@ class BusinessAccount extends Model
         'BS_Email',
         'BS_Logo',
         'BS_Industry',
-        'BS_Employees',
+        'Employees',
         'Access_Code',
     ];
 
@@ -43,6 +44,23 @@ class BusinessAccount extends Model
     public function getDateCreatedAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
+    }
+
+    public function getLogoFullPathAttribute()
+    {
+        $folder  = env('APP_ENV') == 'local' ? Storage::disk('public')->path('uploads').'/' :
+            '/home/oyaacoke/quickscan.brancetech.com/assets/img/logos';
+
+        if ($this->BS_Logo){
+            return $folder.$this->BS_Logo;
+        }
+        return null;
+    }
+
+    public function getLogoUrlAttribute()
+    {
+        return env('APP_ENV') == 'local' ? asset('storage/uploads/'.$this->BS_Logo)
+            : 'https://quickscan.brancetech.com/assets/img/logos'.$this->BS_Logo;
     }
 
     protected function serializeDate(DateTimeInterface $date)

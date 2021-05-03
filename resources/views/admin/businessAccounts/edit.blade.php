@@ -12,83 +12,83 @@
             @csrf
             <div class="form-group">
                 <label class="required" for="bsid">{{ trans('cruds.businessAccount.fields.bsid') }}</label>
-                <input class="form-control {{ $errors->has('bsid') ? 'is-invalid' : '' }}" type="text" name="bsid" id="bsid" value="{{ old('bsid', $businessAccount->bsid) }}" required>
-                @if($errors->has('bsid'))
+                <input class="form-control {{ $errors->has('BS_ID') ? 'is-invalid' : '' }}" type="text" name="BS_ID" id="bsid" value="{{ old('BS_ID', $businessAccount->BS_ID) }}" required>
+                @if($errors->has('BS_ID'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('bsid') }}
+                        {{ $errors->first('BS_ID') }}
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.businessAccount.fields.bsid_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required" for="bs_name">{{ trans('cruds.businessAccount.fields.bs_name') }}</label>
-                <input class="form-control {{ $errors->has('bs_name') ? 'is-invalid' : '' }}" type="text" name="bs_name" id="bs_name" value="{{ old('bs_name', $businessAccount->bs_name) }}" required>
-                @if($errors->has('bs_name'))
+                <input class="form-control {{ $errors->has('BS_Name') ? 'is-invalid' : '' }}" type="text" name="BS_Name" id="bs_name" value="{{ old('BS_Name', $businessAccount->BS_Name) }}" required>
+                @if($errors->has('BS_Name'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('bs_name') }}
+                        {{ $errors->first('BS_Name') }}
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.businessAccount.fields.bs_name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="bs_location">{{ trans('cruds.businessAccount.fields.bs_location') }}</label>
-                <input class="form-control {{ $errors->has('bs_location') ? 'is-invalid' : '' }}" type="text" name="bs_location" id="bs_location" value="{{ old('bs_location', $businessAccount->bs_location) }}">
-                @if($errors->has('bs_location'))
+                <label for="bs_location">{{ trans('cruds.businessAccount.fields.BS_Location') }}</label>
+                <input class="form-control {{ $errors->has('bs_location') ? 'is-invalid' : '' }}" type="text" name="BS_Location" id="bs_location" value="{{ old('BS_Location', $businessAccount->BS_Location) }}">
+                @if($errors->has('BS_Location'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('bs_location') }}
+                        {{ $errors->first('BS_Location') }}
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.businessAccount.fields.bs_location_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required" for="bs_contact">{{ trans('cruds.businessAccount.fields.bs_contact') }}</label>
-                <input class="form-control {{ $errors->has('bs_contact') ? 'is-invalid' : '' }}" type="text" name="bs_contact" id="bs_contact" value="{{ old('bs_contact', $businessAccount->bs_contact) }}" required>
-                @if($errors->has('bs_contact'))
+                <input class="form-control {{ $errors->has('BS_Contact') ? 'is-invalid' : '' }}" type="text" name="BS_Contact" id="bs_contact" value="{{ old('BS_Contact', $businessAccount->BS_Contact) }}" required>
+                @if($errors->has('BS_Contact'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('bs_contact') }}
+                        {{ $errors->first('BS_Contact') }}
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.businessAccount.fields.bs_contact_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="bs_email">{{ trans('cruds.businessAccount.fields.bs_email') }}</label>
-                <input class="form-control {{ $errors->has('bs_email') ? 'is-invalid' : '' }}" type="text" name="bs_email" id="bs_email" value="{{ old('bs_email', $businessAccount->bs_email) }}">
-                @if($errors->has('bs_email'))
+                <input class="form-control {{ $errors->has('BS_Email') ? 'is-invalid' : '' }}" type="text" name="BS_Email" id="bs_email" value="{{ old('BS_Email', $businessAccount->BS_Email) }}">
+                @if($errors->has('BS_Email'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('bs_email') }}
+                        {{ $errors->first('BS_Email') }}
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.businessAccount.fields.bs_email_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="bs_logo">{{ trans('cruds.businessAccount.fields.bs_logo') }}</label>
-                <input class="form-control {{ $errors->has('bs_logo') ? 'is-invalid' : '' }}" type="text" name="bs_logo" id="bs_logo" value="{{ old('bs_logo', $businessAccount->bs_logo) }}">
-                @if($errors->has('bs_logo'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('bs_logo') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.businessAccount.fields.bs_logo_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label for="bs_industry">{{ trans('cruds.businessAccount.fields.bs_industry') }}</label>
-                <input class="form-control {{ $errors->has('bs_industry') ? 'is-invalid' : '' }}" type="text" name="bs_industry" id="bs_industry" value="{{ old('bs_industry', $businessAccount->bs_industry) }}">
-                @if($errors->has('bs_industry'))
+                <input class="form-control {{ $errors->has('bs_industry') ? 'is-invalid' : '' }}" type="text" name="BS_Industry" id="bs_industry" value="{{ old('BS_Industry', $businessAccount->BS_Industry) }}">
+                @if($errors->has('BS_Industry'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('bs_industry') }}
+                        {{ $errors->first('BS_Industry') }}
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.businessAccount.fields.bs_industry_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="employees">{{ trans('cruds.businessAccount.fields.employees') }}</label>
-                <input class="form-control {{ $errors->has('employees') ? 'is-invalid' : '' }}" type="number" name="employees" id="employees" value="{{ old('employees', $businessAccount->employees) }}" step="1">
-                @if($errors->has('employees'))
+                <input class="form-control {{ $errors->has('employees') ? 'is-invalid' : '' }}" type="number" name="Employees" id="employees" value="{{ old('Employees', $businessAccount->Employees) }}" step="1">
+                @if($errors->has('Employees'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('employees') }}
+                        {{ $errors->first('Employees') }}
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.businessAccount.fields.employees_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="bs_logo">{{ trans('cruds.businessAccount.fields.bs_logo') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('BS_Logo') ? 'is-invalid' : '' }}" id="bslogo-dropzone">
+                </div>
+                @if($errors->has('BS_Logo'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('BS_Logo') }}
+                    </div>
+                @endif
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
@@ -101,4 +101,65 @@
 
 
 
+@endsection
+
+@section('scripts')
+    <script>
+        Dropzone.options.bslogoDropzone = {
+            url: '{{ route('admin.business-accounts.storeMedia') }}',
+            maxFilesize: 2, // MB
+            acceptedFiles: '.jpeg,.jpg,.png,.gif',
+            maxFiles: 1,
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            params: {
+                size: 2,
+                width: 4096,
+                height: 4096
+            },
+            success: function (file, response) {
+                $('form').find('input[name="BS_Logo"]').remove()
+                $('form').append('<input type="hidden" name="BS_Logo" value="' + response.name + '">')
+            },
+            removedfile: function (file) {
+                file.previewElement.remove()
+                if (file.status !== 'error') {
+                    $('form').find('input[name="BS_Logo"]').remove()
+                    this.options.maxFiles = this.options.maxFiles + 1
+                }
+            },
+            init: function () {
+                @if(isset($businessAccount) && $businessAccount->BS_Logo && file_exists($businessAccount->logoFullPath))
+                var file = {!! json_encode(['name' => $businessAccount->BS_Logo, 'preview' => $businessAccount->logoUrl,
+        'file_name' => $businessAccount->BS_Logo
+        ,'size' => filesize($businessAccount->logoFullPath)]) !!}
+                    this.options.addedfile.call(this, file)
+                this.options.thumbnail.call(this, file, file.preview)
+                console.log(this.options.thumbnail)
+                file.previewElement.classList.add('dz-complete')
+                $('form').append('<input type="hidden" name="BS_Logo" value="' + file.file_name + '">')
+                this.options.maxFiles = this.options.maxFiles - 1
+                @endif
+            },
+            error: function (file, response) {
+                if ($.type(response) === 'string') {
+                    var message = response //dropzone sends it's own error messages in string
+                } else {
+                    var message = response.errors.file
+                }
+                file.previewElement.classList.add('dz-error')
+                _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+                _results = []
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    node = _ref[_i]
+                    _results.push(node.textContent = message)
+                }
+
+                return _results
+            }
+        }
+        $(".select2").select2({disabled: 'readonly'});
+    </script>
 @endsection

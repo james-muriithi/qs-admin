@@ -37,7 +37,9 @@ class EmployeeController extends Controller
 
     public function store(StoreEmployeeRequest $request)
     {
-        $employee = Employee::create($request->all());
+        $request->merge(['GenId' => $this->generateNextId($request->BS_ID)]);
+
+        Employee::create($request->all());
 
         return redirect()->route('admin.employees.index');
     }
@@ -48,9 +50,9 @@ class EmployeeController extends Controller
 
         $bsids = BusinessAccount::all()->pluck('BS_Name', 'BS_ID')->prepend(trans('global.pleaseSelect'), '');
 
-        $employee->load('bsid');
+        $employee->load('organisation');
 
-        return view('admin.employees.edit', compact('organisation', 'employee'));
+        return view('admin.employees.edit', compact('bsids', 'employee'));
     }
 
     public function update(UpdateEmployeeRequest $request, Employee $employee)
@@ -83,5 +85,34 @@ class EmployeeController extends Controller
         Employee::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function generateNextId($bsId)
+    {
+        $generatedIds = Employee::query()
+            ->where('BS_ID', $bsId)
+            ->whereNotNull('GenId')
+            ->where('GenId', '<>', '')
+            ->orderBy('timestamp', 'DESC')
+            ->get()
+            ->pluck('GenId');
+
+        $firstChar = substr($bsId, 0, 1);
+        $intGenIds = [];
+
+        foreach ($generatedIds as $genId){
+            $id = (int) array_filter(explode($firstChar, $genId))[1];
+            if (is_numeric($id)){
+                array_push($intGenIds, $id);
+            }
+        }
+        sort($intGenIds);
+        $arr2 = range(1,max($intGenIds));
+
+        $missing = array_values(array_diff($arr2, $intGenIds));
+
+        $idWithZeros = count($missing) > 0 ? sprintf('%03d', $missing[0]) : sprintf('%03d', (end($intGenIds) + 1));
+
+        return $firstChar.$idWithZeros;
     }
 }

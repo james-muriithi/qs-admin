@@ -80,7 +80,7 @@
                                 {{ $employee->name ?? '' }}
                             </td>
                             <td>
-                                {{ $employee->genid ?? '' }}
+                                {{ $employee->GenId ?? '' }}
                             </td>
                             <td>
                                 {{ $employee->organisation->BS_Name ?? '' }}
@@ -116,7 +116,7 @@
                                     </a>
                                 @endcan
 
-                                @can('employee_delete')
+                                @can('employee_deletes')
                                     <form action="{{ route('admin.employees.destroy', $employee->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -142,7 +142,7 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('employee_delete')
+@can('employee_deletes')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,

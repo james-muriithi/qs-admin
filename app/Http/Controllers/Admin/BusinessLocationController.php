@@ -65,6 +65,18 @@ class BusinessLocationController extends Controller
 
         $businessLocation->update($request->all());
 
+        if ($request->input('qr', false)) {
+            if (!$businessLocation->qr || $request->input('qr') !== $businessLocation->qr) {
+                if ($businessLocation->qr) {
+                    unlink(public_path('storage/uploads/'.$businessLocation->qr));
+                }
+            }
+        }else{
+            if ($businessLocation->qr) {
+                unlink(public_path('storage/uploads/'.$businessLocation->qr));
+            }
+        }
+
         return redirect()->route('admin.business-locations.index');
     }
 

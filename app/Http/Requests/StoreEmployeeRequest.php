@@ -17,10 +17,15 @@ class StoreEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'employeeid' => [
+            'emp_id' => [
                 'string',
                 'required',
                 'unique:employees',
+            ],
+            'BS_ID' => [
+                'required',
+                'integer',
+                'exists:Business_Accounts,BS_ID'
             ],
             'name' => [
                 'string',

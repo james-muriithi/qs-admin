@@ -11,25 +11,25 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label class="required" for="employeeid">{{ trans('cruds.employee.fields.employeeid') }}</label>
-                <input class="form-control {{ $errors->has('employeeid') ? 'is-invalid' : '' }}" type="text" name="employeeid" id="employeeid" value="{{ old('employeeid', $employee->employeeid) }}" required>
-                @if($errors->has('employeeid'))
+                <label class="required" for="employeeid">{{ trans('cruds.employee.fields.emp_id') }}</label>
+                <input class="form-control {{ $errors->has('employeeid') ? 'is-invalid' : '' }}" type="text" name="emp_id" id="employeeid" value="{{ old('emp_id', $employee->emp_id) }}" required>
+                @if($errors->has('emp_id'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('employeeid') }}
+                        {{ $errors->first('emp_id') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.employee.fields.employeeid_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.employee.fields.emp_id_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="bsid_id">{{ trans('cruds.employee.fields.bsid') }}</label>
-                <select class="form-control select2 {{ $errors->has('bsid') ? 'is-invalid' : '' }}" name="bsid_id" id="bsid_id">
+                <label for="bsid_id">{{ trans('cruds.employee.fields.organisation') }}</label>
+                <select class="form-control select2 {{ $errors->has('BS_ID') ? 'is-invalid' : '' }}" name="BS_ID" id="bsid_id">
                     @foreach($bsids as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('bsid_id') ? old('bsid_id') : $employee->bsid->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        <option value="{{ $id }}" {{ (old('BS_ID') ? old('BS_ID') : $employee->organisation->BS_ID ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('bsid'))
+                @if($errors->has('BS_ID'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('bsid') }}
+                        {{ $errors->first('BS_ID') }}
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.employee.fields.bsid_helper') }}</span>
@@ -63,16 +63,6 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.employee.fields.designation_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="potraits">{{ trans('cruds.employee.fields.potraits') }}</label>
-                <input class="form-control {{ $errors->has('potraits') ? 'is-invalid' : '' }}" type="text" name="potraits" id="potraits" value="{{ old('potraits', $employee->potraits) }}">
-                @if($errors->has('potraits'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('potraits') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.employee.fields.potraits_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="contact">{{ trans('cruds.employee.fields.contact') }}</label>

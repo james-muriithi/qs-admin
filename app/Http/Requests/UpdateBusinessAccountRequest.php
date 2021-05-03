@@ -17,40 +17,39 @@ class UpdateBusinessAccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'bsid' => [
+            'BS_ID' => [
                 'string',
                 'required',
-                'unique:business_accounts,bsid,' . request()->route('business_account')->id,
+                'unique:Business_Accounts,BS_ID,' . request()->route('business_account')->id,
             ],
-            'bs_name' => [
-                'string',
-                'required',
-            ],
-            'bs_location' => [
-                'string',
-                'nullable',
-            ],
-            'bs_contact' => [
+            'BS_Name' => [
                 'string',
                 'required',
             ],
-            'bs_email' => [
+            'BS_Location' => [
                 'string',
                 'nullable',
             ],
-            'bs_logo' => [
+            'BS_Contact' => [
+                'string',
+                'required',
+            ],
+            'BS_Email' => [
                 'string',
                 'nullable',
             ],
-            'bs_industry' => [
+            'BS_Logo' => [
                 'string',
                 'nullable',
             ],
-            'employees' => [
+            'BS_Industry' => [
+                'string',
+                'nullable',
+            ],
+            'Employees' => [
                 'nullable',
                 'integer',
-                'min:-2147483648',
-                'max:2147483647',
+                'min:0',
             ],
         ];
     }
