@@ -16,7 +16,7 @@
                                  alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p> Kiran Patel</p>
+                            <p>{{auth()->user()->name}}</p>
                             <a href="#"><i class="fa fa-circle user-online"></i><span class="txtOnline">
 												Online</span></a>
                         </div>

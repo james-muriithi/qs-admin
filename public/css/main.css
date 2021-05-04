@@ -507,3 +507,19 @@ body{
 .slimScrollDiv{
     height: 100% !important;
 }
+
+a {
+    text-shadow: none;
+    color: #337ab7;
+    text-decoration: none;
+}
+a:hover {
+    cursor: pointer;
+    color: #23527c;
+}
+a:active,
+a:focus,
+a:hover {
+    outline: 0;
+    text-decoration: none;
+}

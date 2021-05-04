@@ -9,7 +9,7 @@ class HomeController
     public function index()
     {
         $settings1 = [
-            'chart_title'           => 'Organisations',
+            'chart_title'           => 'Total Organisations',
             'chart_type'            => 'number_block',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\BusinessAccount',
@@ -185,8 +185,7 @@ class HomeController
                 'emp_id'  => '',
                 'organisation'=> 'BS_Name',
                 'name'        => '',
-                'department'  => '',
-                'designation' => '',
+//                'department'  => '',
                 'GenId'       => '',
                 'timestamp'  => '',
             ],
@@ -204,6 +203,75 @@ class HomeController
             $settings6['fields'] = [];
         }
 
-        return view('home1', compact('settings1', 'settings2', 'settings3', 'settings4', 'chart5', 'settings6'));
+        $settings7 = [
+            'chart_title'           => 'Latest Attendances',
+            'chart_type'            => 'latest_entries',
+            'report_type'           => 'group_by_date',
+            'model'                 => 'App\Models\Attendance',
+            'group_by_field'        => 'date',
+            'group_by_period'       => 'day',
+            'aggregate_function'    => 'count',
+            'filter_field'          => 'date',
+            'group_by_field_format' => 'Y-m-d H:i:s',
+            'column_class'          => 'col-md-12',
+            'entries_number'        => '10',
+            'fields'                => [
+                'employee'  => 'name',
+                'bsid'=> 'BS_Name',
+                'date'        => '',
+                'time_in'  => '',
+                'time_out'       => '',
+//                'location'  => '',
+            ],
+            'translation_key' => 'attendance',
+        ];
+
+        $settings7['data'] = [];
+        if (class_exists($settings7['model'])) {
+            $settings7['data'] = $settings7['model']::orderBy('date', 'DESC')
+                ->take($settings7['entries_number'])
+                ->get();
+        }
+
+        if (!array_key_exists('fields', $settings7)) {
+            $settings7['fields'] = [];
+        }
+
+        $settings8 = [
+            'chart_title'           => 'Latest Organisations',
+            'chart_type'            => 'latest_entries',
+            'report_type'           => 'group_by_date',
+            'model'                 => 'App\Models\BusinessAccount',
+            'group_by_field'        => 'Date_Created',
+            'group_by_period'       => 'day',
+            'aggregate_function'    => 'count',
+            'filter_field'          => 'Date_Created',
+            'group_by_field_format' => 'Y-m-d H:i:s',
+            'column_class'          => 'col-md-12',
+            'entries_number'        => '10',
+            'fields'                => [
+                'BS_Name'  => '',
+                'id'  => '',
+                'BS_ID'=> '',
+                'BS_Logo'        => '',
+                'BS_Email'  => '',
+                'logoUrl'  => '',
+            ],
+            'translation_key' => 'business-account',
+        ];
+
+        $settings8['data'] = [];
+        if (class_exists($settings8['model'])) {
+            $settings8['data'] = $settings8['model']::orderBy('Date_Created', 'DESC')
+                ->take($settings8['entries_number'])
+                ->get();
+        }
+
+        if (!array_key_exists('fields', $settings8)) {
+            $settings8['fields'] = [];
+        }
+
+        return view('home1', compact('settings1', 'settings2', 'settings3',
+            'settings4', 'chart5', 'settings6', 'settings7', 'settings8'));
     }
 }
