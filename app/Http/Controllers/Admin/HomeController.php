@@ -204,6 +204,6 @@ class HomeController
             $settings6['fields'] = [];
         }
 
-        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'chart5', 'settings6'));
+        return view('home1', compact('settings1', 'settings2', 'settings3', 'settings4', 'chart5', 'settings6'));
     }
 }
