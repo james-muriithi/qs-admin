@@ -20,7 +20,9 @@ class BusinessAccountController extends Controller
 
         $businessAccounts = BusinessAccount::all();
 
-        return view('admin.businessAccounts.index', compact('businessAccounts'));
+        $paginatedBusinessAccounts = BusinessAccount::paginate(20);
+
+        return view('admin.businessAccounts.index1', compact('businessAccounts', 'paginatedBusinessAccounts'));
     }
 
     public function create()
