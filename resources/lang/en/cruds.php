@@ -72,7 +72,7 @@ return [
         'title_singular' => 'Manage Business Account',
     ],
     'businessAccount' => [
-        'title'          => 'Business Account',
+        'title'          => 'Business Accounts',
         'title_singular' => 'Business Account',
         'fields'         => [
             'id'                  => 'ID',

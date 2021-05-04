@@ -501,4 +501,9 @@ body{
 }
 .sidemenu-container.navbar-collapse.fixed-menu{
     bottom: 0;
+    top: 0;
+}
+
+.slimScrollDiv{
+    height: 100% !important;
 }
