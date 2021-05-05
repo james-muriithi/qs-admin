@@ -187,27 +187,27 @@
             <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                 <div class="card card-box">
                     <div class="card-head">
-                        <header>{{$settings8['chart_title']}}</header>
+                        <header>{{$settings9['chart_title']}}</header>
                     </div>
                     <div class="card-body ">
                         <div class="row">
                             <ul class="docListWindow small-slimscroll-style">
-                                @forelse($settings8['data'] as $entry)
+                                @forelse($settings9['data'] as $entry)
                                     <li>
                                         <div class="prog-avatar">
-                                            <img src="{{$entry->logoUrl}}"
+                                            <img src="{{$entry->generatePotraitUrl($entry->potraits[0])}}"
                                                  alt="" width="40" height="40">
                                         </div>
                                         <div class="details">
                                             <div class="title">
-                                                <a href="{{route('admin.business-accounts.show', $entry->id)}}">
-                                                    {{$entry->BS_Name}}</a> - ({{$entry->BS_ID}})
+                                                <a href="{{route('admin.employees.show', $entry->id)}}">
+                                                    {{$entry->name}}</a> - ({{$entry->BS_ID}})
                                             </div>
                                         </div>
                                     </li>
                                 @empty
-                                    <div class="mt-3 text-center">
-                                        <p>No organisations</p>
+                                    <div class="mt-3 text-center w-100">
+                                        <p>No active users yet</p>
                                     </div>
                                 @endforelse
                             </ul>

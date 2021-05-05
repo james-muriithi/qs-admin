@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'site_title' => 'quickscan',
+    'site_title' => env('APP_NAME', 'Brance Admin'),
 ];

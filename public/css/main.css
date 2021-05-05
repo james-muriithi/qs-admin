@@ -523,3 +523,10 @@ a:hover {
     outline: 0;
     text-decoration: none;
 }
+.form-group .required::after {
+    content: " *";
+    color: #e02222;
+}
+.form-group input:focus{
+    border: 1px solid #ccc!important;
+}

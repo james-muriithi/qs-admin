@@ -28,15 +28,15 @@ class StoreBusinessAccountRequest extends FormRequest
             ],
             'BS_Location' => [
                 'string',
-                'nullable',
+                'required',
             ],
             'BS_Contact' => [
                 'string',
                 'required',
             ],
             'BS_Email' => [
+                'required',
                 'string',
-                'nullable',
             ],
             'BS_Logo' => [
                 'string',

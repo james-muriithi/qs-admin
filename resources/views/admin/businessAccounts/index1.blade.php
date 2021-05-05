@@ -30,7 +30,7 @@
         <!-- start widget -->
 
         <div class="row">
-            <viv class="col-md-12">
+            <div class="col-md-12">
                 <div class="tabbable-line">
                     <ul class="nav customtab nav-tabs" role="tablist">
                         <li class="nav-item"><a href="#tab1" class="nav-link" data-bs-toggle="tab">List
@@ -166,6 +166,16 @@
                         </div>
                         <div class="tab-pane active" id="tab2">
                             <div class="row">
+                                <div class="row mb-4">
+                                    <div class="col-md-6 col-sm-6 col-6"></div>
+                                    <div class="col-md-6 col-sm-6 col-6 text-end">
+                                        <div class="btn-group">
+                                            <a href="{{ route('admin.business-accounts.create') }}" id="addRow" class="btn btn-info">
+                                                Add New <i class="fa fa-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                                 @foreach($paginatedBusinessAccounts as $businessAccount)
                                     <div class="col-md-4">
                                         <div class="card card-box">
@@ -199,7 +209,7 @@
                     </div>
 
                 </div>
-            </viv>
+            </div>
         </div>
 
     </div>

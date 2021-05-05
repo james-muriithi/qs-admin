@@ -270,8 +270,9 @@ class HomeController
         $settings8['data'] = [];
         if (class_exists($settings8['model'])) {
             $settings8['data'] = $settings8['model']::orderBy('Date_Created', 'DESC')
-                ->take($settings8['entries_number'])
-                ->get()->sortByDesc('totalHoursSpent');
+                ->get()
+                ->sortByDesc('totalHoursSpent')
+                ->take($settings8['entries_number']);
         }
 
         if (!array_key_exists('fields', $settings8)) {
@@ -279,10 +280,10 @@ class HomeController
         }
 
         $settings9 = [
-            'chart_title'           => 'Top Users',
+            'chart_title'           => 'Most Active Users',
             'chart_type'            => 'latest_entries',
             'report_type'           => 'group_by_date',
-            'model'                 => 'App\Models\Employees',
+            'model'                 => 'App\Models\Employee',
             'group_by_field'        => 'Date_Created',
             'group_by_period'       => 'day',
             'aggregate_function'    => 'count',
@@ -291,21 +292,23 @@ class HomeController
             'column_class'          => 'col-md-12',
             'entries_number'        => '10',
             'fields'                => [
+                'id'  => '',
                 'emp_id'  => '',
-                'organisation'=> 'BS_Name',
+                'BS_ID'=> '',
                 'name'        => '',
                 'GenId'       => '',
                 'timestamp'  => '',
-                'totalHoursSpent'  => '',
+                'attendedTimes'  => '',
             ],
-            'translation_key' => 'businessAccount',
+            'translation_key' => 'employee',
         ];
 
         $settings9['data'] = [];
         if (class_exists($settings9['model'])) {
-            $settings9['data'] = $settings9['model']::orderBy('Date_Created', 'DESC')
-                ->take($settings9['entries_number'])
-                ->get()->sortByDesc('totalHoursSpent');
+            $settings9['data'] = $settings9['model']::orderBy('timestamp', 'DESC')
+                ->get()
+                ->sortByDesc('attendedTimes')
+                ->take($settings9['entries_number']);
         }
 
         if (!array_key_exists('fields', $settings9)) {
@@ -313,7 +316,7 @@ class HomeController
         }
 
         return view('home', compact('settings1', 'settings2', 'settings3',
-            'settings4', 'chart5', 'settings6', 'settings7', 'settings8'));
+            'settings4', 'chart5', 'settings6', 'settings7', 'settings8', 'settings9'));
     }
 
     public function generateConditions()

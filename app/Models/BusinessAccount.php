@@ -23,6 +23,10 @@ class BusinessAccount extends Model
         'date_created',
     ];
 
+    protected $appends = [
+        'departments'
+    ];
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -45,6 +49,11 @@ class BusinessAccount extends Model
     public function businessAttendance()
     {
         return $this->hasMany(Attendance::class, 'BS_ID', 'BS_ID');
+    }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class, 'BS_ID', 'BS_ID');
     }
 
     public function getDateCreatedAttribute($value)
@@ -75,6 +84,12 @@ class BusinessAccount extends Model
             return (int) $this->businessAttendance()->sum(DB::raw('TIME_TO_SEC(TIMEDIFF(time_out, time_in))/3600'));
         }
         return 0;
+    }
+
+    public function getDepartmentsAttribute()
+    {
+        return $this->employees()->select(['department', DB::raw('count(department) as total')])
+            ->groupBy('department')->get();
     }
 
     protected function serializeDate(DateTimeInterface $date)

@@ -28,6 +28,8 @@ class Employee extends Model
     ];
     public $timestamps = false;
 
+    protected $appends = ['attendedTimes'];
+
     protected $fillable = [
         'emp_id',
         'BS_ID',
@@ -48,6 +50,11 @@ class Employee extends Model
         return $this->belongsTo(BusinessAccount::class, 'BS_ID', 'BS_ID');
     }
 
+    public function attendance()
+    {
+        return $this->hasMany(Attendance::class, 'employee_id', 'emp_id');
+    }
+
     public function getTimestampAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
@@ -63,8 +70,18 @@ class Employee extends Model
         return $value ? explode('...', $value) : null;
     }
 
+    public function getAttendedTimesAttribute()
+    {
+        return $this->attendance->count();
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function generatePotraitUrl($potrait)
+    {
+        return 'https://quickscan.brancetech.com/assets/img/people/'.$potrait;
     }
 }

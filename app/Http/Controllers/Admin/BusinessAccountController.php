@@ -29,7 +29,7 @@ class BusinessAccountController extends Controller
     {
         abort_if(Gate::denies('business_account_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.businessAccounts.create');
+        return view('admin.businessAccounts.create1');
     }
 
     public function store(StoreBusinessAccountRequest $request)
@@ -78,7 +78,7 @@ class BusinessAccountController extends Controller
 
         $businessAccount->load('businessLocations');
 
-        return view('admin.businessAccounts.show', compact('businessAccount'));
+        return view('admin.businessAccounts.show1', compact('businessAccount'));
     }
 
     public function destroy(BusinessAccount $businessAccount)

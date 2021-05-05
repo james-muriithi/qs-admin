@@ -28,7 +28,7 @@ class UpdateBusinessAccountRequest extends FormRequest
             ],
             'BS_Location' => [
                 'string',
-                'nullable',
+                'required',
             ],
             'BS_Contact' => [
                 'string',
