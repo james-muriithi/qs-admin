@@ -6,6 +6,7 @@ use \DateTimeInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class BusinessAccount extends Model
@@ -41,6 +42,11 @@ class BusinessAccount extends Model
         return $this->hasMany(BusinessLocation::class, 'bs_id', 'BS_ID');
     }
 
+    public function businessAttendance()
+    {
+        return $this->hasMany(Attendance::class, 'BS_ID', 'BS_ID');
+    }
+
     public function getDateCreatedAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
@@ -61,6 +67,14 @@ class BusinessAccount extends Model
     {
         return env('APP_ENV') == 'local' ? asset('storage/uploads/'.$this->BS_Logo)
             : 'https://quickscan.brancetech.com/assets/img/logos/'.$this->BS_Logo;
+    }
+
+    public function getTotalHoursSpentAttribute()
+    {
+        if ($this->businessAttendance->count() > 0){
+            return (int) $this->businessAttendance()->sum(DB::raw('TIME_TO_SEC(TIMEDIFF(time_out, time_in))/3600'));
+        }
+        return 0;
     }
 
     protected function serializeDate(DateTimeInterface $date)

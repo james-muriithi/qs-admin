@@ -107,6 +107,117 @@
         <!-- end widget -->
         <div class="row">
             <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                <div class="card card-box">
+                    <div class="card-head">
+                        <header>{{$settings8['chart_title']}}</header>
+                        <div class="tools">
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-body no-padding height-9">
+                        <div class="row table-padding">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a href="{{route('admin.business-accounts.create')}}" id="addRow" class="btn btn-info">
+                                        Add New <i class="fa fa-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive w-100">
+                            <table class="table table-striped table-bordered table-hover table-checkable w-100" id="example4">
+                                <thead>
+                                <tr>
+                                    @foreach($settings8['fields'] as $key => $value)
+                                        @if($key == 'id' || $key == 'logoUrl')
+                                            @continue
+                                        @endif
+                                        <th>
+                                            {{ trans(sprintf('cruds.%s.fields.%s', $settings8['translation_key'] ?? 'pleaseUpdateWidget', $key)) }}
+                                        </th>
+                                    @endforeach
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @forelse($settings8['data'] as $entry)
+                                    <tr class="odd gradeX">
+                                        @foreach($settings8['fields'] as $key => $value)
+                                            @if($key == 'id' || $key == 'logoUrl')
+                                                @continue
+                                            @endif
+                                            <td class="center">
+                                                @if($value === '')
+                                                    @if($key == 'BS_Name')
+                                                        <a href="{{route('admin.business-accounts.show', $entry->id)}}" class="d-inline">
+                                                            <img src="{{$entry->logoUrl}}" class="img-circle img-thumbnail" width="30" height="30" alt="">
+                                                            {{ $entry->{$key} }}
+                                                        </a>
+                                                    @else
+                                                        {{ $entry->{$key} }}
+                                                    @endif
+
+                                                @elseif(is_iterable($entry->{$key}))
+                                                    @foreach($entry->{$key} as $subEentry)
+                                                        <span class="label label-info">{{ $subEentry->{$value} }}</span>
+                                                    @endforeach
+                                                @else
+                                                    @if($key == 'employee')
+                                                        <a href="{{route('admin.employees.show', data_get($entry, $key . '.id' ))}}">
+                                                            {{ data_get($entry, $key . '.' . $value) }}
+                                                        </a>
+                                                    @else
+                                                        {{ data_get($entry, $key . '.' . $value) }}
+                                                    @endif
+                                                @endif
+                                            </td>
+                                        @endforeach
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="{{ count($settings8['fields']) }}">{{ __('No entries found') }}</td>
+                                    </tr>
+                                @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                <div class="card card-box">
+                    <div class="card-head">
+                        <header>{{$settings8['chart_title']}}</header>
+                    </div>
+                    <div class="card-body ">
+                        <div class="row">
+                            <ul class="docListWindow small-slimscroll-style">
+                                @forelse($settings8['data'] as $entry)
+                                    <li>
+                                        <div class="prog-avatar">
+                                            <img src="{{$entry->logoUrl}}"
+                                                 alt="" width="40" height="40">
+                                        </div>
+                                        <div class="details">
+                                            <div class="title">
+                                                <a href="{{route('admin.business-accounts.show', $entry->id)}}">
+                                                    {{$entry->BS_Name}}</a> - ({{$entry->BS_ID}})
+                                            </div>
+                                        </div>
+                                    </li>
+                                @empty
+                                    <div class="mt-3 text-center">
+                                        <p>No organisations</p>
+                                    </div>
+                                @endforelse
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
                 <div class="card-box">
                     <div class="card-head">
                         <header>Latest Records</header>
@@ -211,42 +322,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-                <div class="card card-box">
-                    <div class="card-head">
-                        <header>{{$settings8['chart_title']}}</header>
-                    </div>
-                    <div class="card-body ">
-                        <div class="row">
-                            <ul class="docListWindow small-slimscroll-style">
-                                @forelse($settings8['data'] as $entry)
-                                    <li>
-                                        <div class="prog-avatar">
-                                            <img src="{{$entry->logoUrl}}"
-                                                 alt="" width="40" height="40">
-                                        </div>
-                                        <div class="details">
-                                            <div class="title">
-                                                <a href="{{route('admin.business-accounts.show', $entry->id)}}">
-                                                    {{$entry->BS_Name}}</a> - ({{$entry->BS_ID}})
-                                            </div>
-                                        </div>
-                                    </li>
-                                @empty
-                                    <div class="mt-3 text-center">
-                                        <p>No organisations</p>
-                                    </div>
-                                @endforelse
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-
             </div>
         </div>
     </div>

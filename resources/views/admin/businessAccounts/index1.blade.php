@@ -213,13 +213,14 @@
     <script src="//cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
     <script>
-        $(".datatable-BusinessAccount").DataTable({
-            dom: "Bfrtip",
-            buttons: ["copy", "csv", "excel", "pdf", "print"],
-        });
+        $(document).ready(function (){
+            $(".datatable-BusinessAccount").DataTable({
+                dom: "Bfrtip",
+                buttons: ["copy", "csv", "excel", "pdf", "print"],
+            });
+        })
     </script>
 @endsection

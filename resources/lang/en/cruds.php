@@ -77,15 +77,19 @@ return [
         'fields'         => [
             'id'                  => 'ID',
             'id_helper'           => ' ',
-            'bsid'                => 'Bsid',
+            'bsid'                => 'Bs Id',
+            'BS_ID'                => 'Bs Id',
             'bsid_helper'         => ' ',
             'bs_name'             => 'Bs Name',
+            'BS_Name'             => 'Bs Name',
             'bs_name_helper'      => ' ',
             'bs_location'         => 'Bs Location',
             'bs_location_helper'  => ' ',
             'bs_contact'          => 'Bs Contact',
+            'BS_Contact'          => 'Bs Contact',
             'bs_contact_helper'   => ' ',
             'bs_email'            => 'Bs Email',
+            'BS_Email'            => 'Bs Email',
             'bs_email_helper'     => ' ',
             'bs_logo'             => 'Bs Logo',
             'bs_logo_helper'      => ' ',
@@ -103,6 +107,7 @@ return [
             'updated_at_helper'   => ' ',
             'deleted_at'          => 'Deleted at',
             'deleted_at_helper'   => ' ',
+            'totalHoursSpent' => 'Hours Spent'
         ],
     ],
     'manageEmployee' => [

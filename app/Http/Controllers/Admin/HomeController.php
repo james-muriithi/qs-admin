@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\BusinessAccount;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class HomeController
@@ -9,7 +10,7 @@ class HomeController
     public function index()
     {
         $settings1 = [
-            'chart_title'           => 'Total Organisations',
+            'chart_title'           => 'Organisations',
             'chart_type'            => 'number_block',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\BusinessAccount',
@@ -45,7 +46,7 @@ class HomeController
         }
 
         $settings2 = [
-            'chart_title'           => 'Total Employees',
+            'chart_title'           => 'Employees',
             'chart_type'            => 'number_block',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\Employee',
@@ -81,7 +82,7 @@ class HomeController
         }
 
         $settings3 = [
-            'chart_title'           => 'Total Admins',
+            'chart_title'           => 'Admins',
             'chart_type'            => 'number_block',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\User',
@@ -154,17 +155,22 @@ class HomeController
         }
 
         $settings5 = [
-            'chart_title'        => 'Organisation Employees',
-            'chart_type'         => 'bar',
-            'report_type'        => 'group_by_relationship',
-            'model'              => 'App\Models\Employee',
-            'group_by_field'     => 'BS_ID',
+            'chart_title'        => 'Attendances',
+            'chart_type'         => 'line',
+            'report_type'        => 'group_by_date',
+            'model'              => 'App\Models\Attendance',
+            'group_by_field'     => 'date',
+            'group_by_field_format' => 'Y-m-d',
+            'date_format_filter_days' => 'Y-m-d',
+            'group_by_period' => 'day',
             'aggregate_function' => 'count',
-            'filter_field'       => 'created_at',
+            'filter_field'       => 'date',
+            'filter_period'      => 'month',
             'column_class'       => 'col-md-12',
-            'entries_number'     => '5',
-            'relationship_name'  => 'organisation',
-            'translation_key'    => 'employee',
+            'translation_key'    => 'attendance',
+            'continuous_time' => true,
+            'conditions'            => $this->generateConditions(),
+
         ];
 
         $chart5 = new LaravelChart($settings5);
@@ -250,28 +256,81 @@ class HomeController
             'column_class'          => 'col-md-12',
             'entries_number'        => '10',
             'fields'                => [
-                'BS_Name'  => '',
                 'id'  => '',
+                'BS_Name'  => '',
                 'BS_ID'=> '',
-                'BS_Logo'        => '',
-                'BS_Email'  => '',
+//                'BS_Email'  => '',
+                'BS_Contact'  => '',
                 'logoUrl'  => '',
+                'totalHoursSpent'  => '',
             ],
-            'translation_key' => 'business-account',
+            'translation_key' => 'businessAccount',
         ];
 
         $settings8['data'] = [];
         if (class_exists($settings8['model'])) {
             $settings8['data'] = $settings8['model']::orderBy('Date_Created', 'DESC')
                 ->take($settings8['entries_number'])
-                ->get();
+                ->get()->sortByDesc('totalHoursSpent');
         }
 
         if (!array_key_exists('fields', $settings8)) {
             $settings8['fields'] = [];
         }
 
+        $settings9 = [
+            'chart_title'           => 'Top Users',
+            'chart_type'            => 'latest_entries',
+            'report_type'           => 'group_by_date',
+            'model'                 => 'App\Models\Employees',
+            'group_by_field'        => 'Date_Created',
+            'group_by_period'       => 'day',
+            'aggregate_function'    => 'count',
+            'filter_field'          => 'Date_Created',
+            'group_by_field_format' => 'Y-m-d H:i:s',
+            'column_class'          => 'col-md-12',
+            'entries_number'        => '10',
+            'fields'                => [
+                'emp_id'  => '',
+                'organisation'=> 'BS_Name',
+                'name'        => '',
+                'GenId'       => '',
+                'timestamp'  => '',
+                'totalHoursSpent'  => '',
+            ],
+            'translation_key' => 'businessAccount',
+        ];
+
+        $settings9['data'] = [];
+        if (class_exists($settings9['model'])) {
+            $settings9['data'] = $settings9['model']::orderBy('Date_Created', 'DESC')
+                ->take($settings9['entries_number'])
+                ->get()->sortByDesc('totalHoursSpent');
+        }
+
+        if (!array_key_exists('fields', $settings9)) {
+            $settings9['fields'] = [];
+        }
+
         return view('home', compact('settings1', 'settings2', 'settings3',
             'settings4', 'chart5', 'settings6', 'settings7', 'settings8'));
+    }
+
+    public function generateConditions()
+    {
+        $colors = ['#A3A3FE', '#A5A5A5', '#ED7D31', '#FFBF00', '#CCCCFF', '#000080', '#800080', '#008080', '#00FFFF',
+        '#008000', '#fc9cb5', '#719c70', '#f46732', '#c6bdff', '#e43553'
+        ];
+        $orgs = BusinessAccount::all();
+        $conditions = [];
+        foreach ($orgs as $i => $org) {
+            $color = array_rand($colors);
+            $conditions[] = [
+                'name' => "$org->BS_Name", 'condition' => 'BS_ID = "'.$org->BS_ID.'"',
+                'color' => "$colors[$color]", 'fill' => false
+            ];
+        }
+
+        return $conditions;
     }
 }
