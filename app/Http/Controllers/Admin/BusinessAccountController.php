@@ -47,7 +47,7 @@ class BusinessAccountController extends Controller
     {
         abort_if(Gate::denies('business_account_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.businessAccounts.edit', compact('businessAccount'));
+        return view('admin.businessAccounts.edit1', compact('businessAccount'));
     }
 
     public function update(UpdateBusinessAccountRequest $request, BusinessAccount $businessAccount)

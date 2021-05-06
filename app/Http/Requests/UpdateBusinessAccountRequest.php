@@ -17,11 +17,6 @@ class UpdateBusinessAccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'BS_ID' => [
-                'string',
-                'required',
-                'unique:Business_Accounts,BS_ID,' . request()->route('business_account')->id,
-            ],
             'BS_Name' => [
                 'string',
                 'required',

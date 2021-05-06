@@ -69,6 +69,7 @@
                             <div class="profile-userbuttons">
                                 <a href="tel:{{$businessAccount->BS_Contact}}" class="btn btn-circle green btn-sm">Contact</a>
                                 <a href="mailto:{{$businessAccount->BS_Email}}" class="btn btn-circle red btn-sm">Email</a>
+                                <a href="{{route('admin.business-accounts.edit', $businessAccount->id)}}" class="btn btn-circle blue btn-sm">Edit</a>
                             </div>
                             <!-- END SIDEBAR BUTTONS -->
                         </div>

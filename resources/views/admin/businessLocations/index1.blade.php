@@ -14,7 +14,7 @@
         <div class="page-bar">
             <div class="page-title-breadcrumb">
                 <div class=" pull-left">
-                    <div class="page-title">{{ trans('cruds.businessAccount.title_singular') }} {{ trans('global.list') }}</div>
+                    <div class="page-title">{{ trans('cruds.businessLocation.title_singular') }} {{ trans('global.list') }}</div>
                 </div>
                 <ol class="breadcrumb page-breadcrumb pull-right">
                     <li>
@@ -23,7 +23,7 @@
                             {{trans('global.home')}}
                         </a>&nbsp;<i class="fa fa-angle-right"></i>
                     </li>
-                    <li class="active">{{ trans('cruds.businessAccount.title_singular') }} {{ trans('global.list') }}</li>
+                    <li class="active">{{ trans('cruds.businessLocation.title_singular') }} {{ trans('global.list') }}</li>
                 </ol>
             </div>
         </div>
@@ -40,19 +40,19 @@
                     </ul>
 
                     <div class="tab-content">
-                        <div class="tab-pane fontawesome-demo" id="tab1">
+                        <div class="tab-pane fontawesome-demo active" id="tab1">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card card-box">
                                         <div class="card-head">
-                                            <header>All {{ trans('cruds.businessAccount.title_singular') }}s</header>
+                                            <header>All {{ trans('cruds.businessLocation.title_singular') }}s</header>
                                             <div class="tools">
                                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
                                                 <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
                                             </div>
                                         </div>
                                         <div class="card-body ">
-                                            <div class="row">
+                                            <div class="row mb-3">
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
                                                         <a href="{{ route('admin.business-accounts.create') }}" id="addRow" class="btn btn-info">
@@ -67,31 +67,25 @@
                                                     <thead>
                                                     <tr>
                                                         <th>
-                                                            {{ trans('cruds.businessAccount.fields.id') }}
+                                                            {{ trans('cruds.businessLocation.fields.id') }}
                                                         </th>
                                                         <th>
-                                                            {{ trans('cruds.businessAccount.fields.bsid') }}
+                                                            {{ trans('cruds.businessLocation.fields.name') }}
                                                         </th>
                                                         <th>
-                                                            {{ trans('cruds.businessAccount.fields.bs_name') }}
+                                                            {{ trans('cruds.businessLocation.fields.bsid') }}
                                                         </th>
                                                         <th>
-                                                            {{ trans('cruds.businessAccount.fields.bs_location') }}
+                                                            {{ trans('cruds.businessLocation.fields.coordinates') }}
                                                         </th>
                                                         <th>
-                                                            {{ trans('cruds.businessAccount.fields.bs_contact') }}
+                                                            {{ trans('cruds.businessLocation.fields.polygon') }}
                                                         </th>
                                                         <th>
-                                                            {{ trans('cruds.businessAccount.fields.bs_email') }}
+                                                            {{ trans('cruds.businessLocation.fields.status') }}
                                                         </th>
                                                         <th>
-                                                            {{ trans('cruds.businessAccount.fields.bs_industry') }}
-                                                        </th>
-                                                        <th>
-                                                            {{ trans('cruds.businessAccount.fields.employees') }}
-                                                        </th>
-                                                        <th>
-                                                            {{ trans('cruds.businessAccount.fields.date_created') }}
+                                                            {{ trans('cruds.businessLocation.fields.qr') }}
                                                         </th>
                                                         <th>
                                                             &nbsp;
@@ -99,50 +93,44 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($businessAccounts as $key => $businessAccount)
+                                                    @foreach($businessLocations as $key => $businessLocation)
                                                         <tr data-entry-id="{{ $loop->index }}">
                                                             <td>
-                                                                {{ $businessAccount->id ?? '' }}
+                                                                {{ $businessLocation->id ?? '' }}
                                                             </td>
                                                             <td>
-                                                                {{ $businessAccount->BS_ID ?? '' }}
+                                                                {{ $businessLocation->name ?? '' }}
                                                             </td>
                                                             <td>
-                                                                {{ $businessAccount->BS_Name ?? '' }}
+                                                                {{ $businessLocation->business->BS_Name ?? '' }}
                                                             </td>
                                                             <td>
-                                                                {{ $businessAccount->BS_Location ?? '' }}
+                                                                {{ $businessLocation->coordinates ?? '' }}
                                                             </td>
                                                             <td>
-                                                                {{ $businessAccount->BS_Contact ?? '' }}
+                                                                {{ $businessLocation->polygon ?? '' }}
                                                             </td>
                                                             <td>
-                                                                {{ $businessAccount->BS_Email ?? '' }}
+                                                                {{ $businessLocation->status ?? '' }}
                                                             </td>
                                                             <td>
-                                                                {{ $businessAccount->BS_Industry ?? '' }}
+                                                                <img class="img-thumbnail" height="40" width="40" src="{{asset('storage/uploads/'.$businessLocation->qr)}}">
                                                             </td>
                                                             <td>
-                                                                {{ $businessAccount->Employees ?? '' }}
-                                                            </td>
-                                                            <td>
-                                                                {{ $businessAccount->Date_Created ?? '' }}
-                                                            </td>
-                                                            <td>
-                                                                @can('business_account_show')
-                                                                    <a class="btn btn-xs btn-primary" title="{{ trans('global.view') }}" href="{{ route('admin.business-accounts.show', $businessAccount->id) }}">
-                                                                        <i class="fa fa-eye"></i>
+                                                                @can('business_location_show')
+                                                                    <a class="btn btn-xs btn-primary" download="{{$businessLocation->qr}}-nairobi" title="{{ trans('global.view') }}" href="{{ asset('storage/uploads/'.$businessLocation->qr) }}">
+                                                                        <i class="fa fa-download"></i>
                                                                     </a>
                                                                 @endcan
 
-                                                                @can('business_account_edit')
-                                                                    <a class="btn btn-xs btn-info" href="{{ route('admin.business-accounts.edit', $businessAccount->id) }}" title="{{ trans('global.edit') }}">
+                                                                @can('business_location_edit')
+                                                                    <a class="btn btn-xs btn-info" href="{{ route('admin.business-locations.edit', $businessLocation->id) }}" title="{{ trans('global.edit') }}">
                                                                         <i class="fa fa-pencil "></i>
                                                                     </a>
                                                                 @endcan
 
-                                                                @can('business_account_deletes')
-                                                                    <form action="{{ route('admin.business-accounts.destroy', $businessAccount->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                                @can('business_location_delete')
+                                                                    <form action="{{ route('admin.business-locations.destroy', $businessLocation->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                                                         <input type="hidden" name="_method" value="DELETE">
                                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                         <button type="submit" class="btn btn-xs btn-danger" title="{{ trans('global.delete') }}">
@@ -164,7 +152,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane active" id="tab2">
+                        <div class="tab-pane" id="tab2">
                             <div class="row">
                                 <div class="row mb-4">
                                     <div class="col-md-6 col-sm-6 col-6"></div>
@@ -176,34 +164,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                @foreach($paginatedBusinessAccounts as $businessAccount)
-                                    <div class="col-md-4">
-                                        <div class="card card-box">
-                                            <div class="card-body no-padding ">
-                                                <div class="doctor-profile">
-                                                    <img src="{{$businessAccount->logoUrl}}" class="doctor-pic" alt="">
-                                                    <div class="profile-usertitle">
-                                                        <div class="doctor-name">{{$businessAccount->BS_Name}}</div>
-                                                        <div class="name-center"> {{$businessAccount->BS_Email}} </div>
-                                                    </div>
-                                                    <p>{{$businessAccount->BS_Location}}</p>
-                                                    <div>
-                                                        <p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">
-                                                            {{$businessAccount->BS_Contact}}</a></p>
-                                                    </div>
-                                                    <div class="profile-userbuttons">
-                                                        <a href="{{route('admin.business-accounts.show', $businessAccount->id)}}"
-                                                           class="btn btn-circle deepPink-bgcolor btn-sm">
-                                                            {{trans('global.view')}}</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                                <div class="fr">
-                                    {{$paginatedBusinessAccounts->links('pagination::bootstrap-4')}}
-                                </div>
+
+
                             </div>
                         </div>
                     </div>

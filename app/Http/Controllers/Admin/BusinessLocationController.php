@@ -24,7 +24,7 @@ class BusinessLocationController extends Controller
 
         $businessLocations = BusinessLocation::with(['business'])->get();
 
-        return view('admin.businessLocations.index', compact('businessLocations'));
+        return view('admin.businessLocations.index1', compact('businessLocations'));
     }
 
     public function create()
@@ -33,7 +33,7 @@ class BusinessLocationController extends Controller
 
         $bsids = BusinessAccount::all()->pluck('BS_Name', 'BS_ID')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.businessLocations.create', compact('bsids'));
+        return view('admin.businessLocations.create1', compact('bsids'));
     }
 
     public function store(StoreBusinessLocationRequest $request)
