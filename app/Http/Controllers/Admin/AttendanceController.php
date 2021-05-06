@@ -16,7 +16,7 @@ class AttendanceController extends Controller
 
         $attendances = Attendance::with(['bsid', 'employee'])->get();
 
-        return view('admin.attendances.index', compact('attendances'));
+        return view('admin.attendances.index1', compact('attendances'));
     }
 
     public function show(Attendance $attendance)
