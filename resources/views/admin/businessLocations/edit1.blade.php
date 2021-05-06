@@ -7,6 +7,12 @@
         .bootstrap-tagsinput{
             width: 100%;
         }
+        .bootstrap-tagsinput input{
+            height: 30px;
+        }
+        .bootstrap-tagsinput input:focus{
+            border: none!important;
+        }
         .label-info{
             background-color: #17a2b8;
 

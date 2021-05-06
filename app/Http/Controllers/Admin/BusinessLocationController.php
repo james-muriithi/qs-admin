@@ -24,7 +24,9 @@ class BusinessLocationController extends Controller
 
         $businessLocations = BusinessLocation::with(['business'])->get();
 
-        return view('admin.businessLocations.index1', compact('businessLocations'));
+        $paginatedBusinessLocations = BusinessLocation::paginate(20);
+
+        return view('admin.businessLocations.index1', compact('businessLocations', 'paginatedBusinessLocations'));
     }
 
     public function create()
@@ -54,7 +56,7 @@ class BusinessLocationController extends Controller
 
         $businessLocation->load('business');
 
-        return view('admin.businessLocations.edit', compact('bsids', 'businessLocation'));
+        return view('admin.businessLocations.edit1', compact('bsids', 'businessLocation'));
     }
 
     public function update(UpdateBusinessLocationRequest $request, BusinessLocation $businessLocation)

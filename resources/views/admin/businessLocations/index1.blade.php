@@ -7,6 +7,10 @@
         .fr .pagination{
             float: right;
         }
+        .qr-image img{
+            height: 350px;
+            width: 100%;
+        }
     </style>
 @endsection
 @section('content')
@@ -40,7 +44,7 @@
                     </ul>
 
                     <div class="tab-content">
-                        <div class="tab-pane fontawesome-demo active" id="tab1">
+                        <div class="tab-pane fontawesome-demo" id="tab1">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card card-box">
@@ -55,7 +59,7 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('admin.business-accounts.create') }}" id="addRow" class="btn btn-info">
+                                                        <a href="{{ route('admin.business-locations.create') }}" id="addRow" class="btn btn-info">
                                                             Add New <i class="fa fa-plus"></i>
                                                         </a>
                                                     </div>
@@ -152,7 +156,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="tab2">
+                        <div class="tab-pane active" id="tab2">
                             <div class="row">
                                 <div class="row mb-4">
                                     <div class="col-md-6 col-sm-6 col-6"></div>
@@ -165,7 +169,34 @@
                                     </div>
                                 </div>
 
-
+                                @foreach($paginatedBusinessLocations as $key => $location)
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-head text-center text-capitalize">
+                                               {{$location->business->BS_Name}} - {{$location->name}}
+                                            </div>
+                                            <div class="item active qr-image">
+                                                <img src="{{asset('storage/uploads/'.$location->qr)}}"
+                                                     alt="">
+                                            </div>
+                                            <div class="card-footer">
+                                                <div class="row">
+                                                    <div class="col-6 text-center">
+                                                        <a href="{{asset('storage/uploads/'.$location->qr)}}" download="{{$location->name}}-qr">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-6 text-center">
+                                                        <i class="fa fas fa-trash text-danger"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                <div class="fr">
+                                    {{$paginatedBusinessLocations->links('pagination::bootstrap-4')}}
+                                </div>
                             </div>
                         </div>
                     </div>
