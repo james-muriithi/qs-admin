@@ -46,7 +46,7 @@ class HomeController
         }
 
         $settings2 = [
-            'chart_title'           => 'Employees',
+            'chart_title'           => 'Users',
             'chart_type'            => 'number_block',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\Employee',
@@ -176,7 +176,7 @@ class HomeController
         $chart5 = new LaravelChart($settings5);
 
         $settings6 = [
-            'chart_title'           => 'Latest Employees',
+            'chart_title'           => 'Latest Users',
             'chart_type'            => 'latest_entries',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\Employee',

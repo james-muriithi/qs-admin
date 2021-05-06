@@ -1,6 +1,11 @@
 @extends('layouts.admin1')
 @section('styles')
-
+    <style>
+        .qr-image img{
+            height: 350px;
+            width: 100%;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="page-content">
@@ -55,6 +60,9 @@
                                 <li class="list-group-item">
                                     <b>Location</b> <a class="pull-right">{{$businessAccount->BS_Location}}</a>
                                 </li>
+                                <li class="list-group-item">
+                                    <b>Industry</b> <a class="pull-right">{{$businessAccount->BS_Industry}}</a>
+                                </li>
                             </ul>
                             <!-- END SIDEBAR USER TITLE -->
                             <!-- SIDEBAR BUTTONS -->
@@ -92,30 +100,6 @@
                             </ul>
                         </div>
                     </div>
-
-                    @if($businessAccount->departments->count() > 0)
-                        <div class="card">
-                            <div class="card-head">
-                                <header>Departments</header>
-                            </div>
-                            <div class="card-body no-padding height-9">
-                                <ul class="list-group list-group-unbordered">
-                                    <li class="list-group-item border-top-0">
-                                        <b>Total Departments </b>
-                                        <div class="profile-desc-item pull-right">{{$businessAccount->departments->count()}}</div>
-                                    </li>
-                                </ul>
-                                <div class="row list-separated profile-stat">
-                                    @foreach($businessAccount->departments as $department)
-                                        <div class="col-md-4 col-sm-4 col-6">
-                                            <div class="uppercase profile-stat-title"> {{$department->total}} </div>
-                                            <div class="uppercase profile-stat-text"> {{$department->department}} </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    @endif
 
                     <div class="card">
                         <div class="card-head">
@@ -167,7 +151,223 @@
                     </div>
                 <!-- END BEGIN PROFILE SIDEBAR -->
             </div>
+                <!-- END PROFILE SIDEBAR  -->
+                <!-- BEGIN PROFILE CONTENT -->
+                <div class="profile-content">
+                    <di class="row">
+                        <div class="col-md-12">
+                            @if($businessAccount->departments->count() > 0)
+                                <div class="card">
+                                    <div class="card-head">
+                                        <header>Departments</header>
+                                    </div>
+                                    <div class="card-body no-padding height-9">
+                                        <ul class="list-group list-group-unbordered">
+                                            <li class="list-group-item border-top-0">
+                                                <b>Total Departments </b>
+                                                <div class="profile-desc-item pull-right">{{$businessAccount->departments->count()}}</div>
+                                            </li>
+                                        </ul>
+                                        <div class="row list-separated profile-stat">
+                                            @foreach($businessAccount->departments as $department)
+                                                <div class="col-md-3 col-4">
+                                                    <div class="uppercase profile-stat-title"> {{$department->total}} </div>
+                                                    <div class="uppercase profile-stat-text"> {{$department->department}} </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div class="card">
+                                <div class="card-head">
+                                    <header>Monthly Active Users</header>
+                                </div>
+                                <div class="card-body no-padding height-9">
+                                    <?php
+                                    $years = range(date('Y'), 2020);
+                                    $months = array(
+                                        'January',
+                                        'February',
+                                        'March',
+                                        'April',
+                                        'May',
+                                        'June',
+                                        'July ',
+                                        'August',
+                                        'September',
+                                        'October',
+                                        'November',
+                                        'December',
+                                    );
+                                    ?>
+                                    <div class="row mb-3">
+                                        <div class="col-12 col-md-6 text-end d-flex"></div>
+                                        <div class="col-12 col-md-6 text-end d-flex">
+                                            <select name="year" id="year" class="form-control">
+                                                <option value="" disabled>--Select Year--</option>
+                                                @foreach($years as $year)
+                                                    <option value="{{$year}}" {{$year == date('Y') ? 'selected':''}}>{{$year}}</option>
+                                                @endforeach
+                                            </select>
+                                            <select name="month" id="month" class="form-control mx-1">
+                                                <option value="" disabled>--Select Year--</option>
+                                                @foreach($months as $i => $month)
+                                                    <option value="{{$i + 1}}" {{$i+1 == date('m') ? 'selected':''}}>
+                                                        {{$month}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Employee">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                {{ trans('cruds.employee.fields.id') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.employee.fields.name') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.employee.fields.emp_id') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.employee.fields.contact') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.employee.fields.genid') }}
+                                            </th>
+                                            <th>
+                                                Check ins
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </di>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-head">
+                        <header>Business Locations</header>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @forelse($businessAccount->businessLocations as $location)
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-head text-center text-capitalize">
+                                            {{$location->name}}
+                                        </div>
+                                        <div class="item active qr-image">
+                                            <img src="{{asset('storage/uploads/'.$location->qr)}}"
+                                                 alt="">
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="row">
+                                                <div class="col-6 text-center">
+                                                    <a href="{{asset('storage/uploads/'.$location->qr)}}" download="{{$location->name}}-qr">
+                                                        <i class="fa fa-download"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="col-6 text-center">
+                                                    <i class="fa fas fa-trash text-danger"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="col-12 text-center my-3">
+                                    <div class="card-head border-bottom-0">
+                                        <header class="d-block">
+                                            No Locations Yet
+                                        </header>
+                                        <a href="{{ route('admin.business-locations.create') }}" id="addRow" class="btn btn-info">
+                                            Add New Location<i class="fa fa-plus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    @parent
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(function () {
+            _token = $('meta[name="csrf-token"]').attr('content')
+            let dtOverrideGlobals = {
+                buttons: {},
+                processing: true,
+                serverSide: true,
+                retrieve: true,
+                aaSorting: [],
+                searching: false,
+                "lengthChange": false,
+                ajax: {
+                    headers: {'x-csrf-token': _token},
+                    url: "{{ route('admin.business-accounts.mostActive') }}",
+                    data: function (data){
+                        data.year = $('#year').val();
+                        data.month = $('#month').val();
+                        data.bs_id = '{{$businessAccount->id}}';
+                    }
+                },
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'name', name: 'name' },
+                    { data: 'emp_id', name: 'emp_id' },
+                    { data: 'contact', name: 'contact' },
+                    { data: 'genid', name: 'genid' },
+                    { data: 'check_ins', name: 'check_ins' }
+                ],
+                orderCellsTop: true,
+                order: [[ 5, 'desc' ]],
+                pageLength: 10,
+            };
+            let table = $('.datatable-Employee').DataTable(dtOverrideGlobals);
+            $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
+                $($.fn.dataTable.tables(true)).DataTable()
+                    .columns.adjust();
+            });
+
+            $('#year,#month').on('change', function (){
+                const month = $('#month').val();
+                const year = $('#year').val();
+
+                if (month && year){
+                    table.ajax.reload()
+                }
+            });
+            $('#year').on('change', disableMonths)
+            disableMonths()
+        });
+
+        function disableMonths(){
+            const year = $('#year').val();
+            const date = new Date();
+            //if this year
+            if (year == date.getFullYear()){
+                for (let i = date.getMonth() + 2; i <= 12; i++){
+                    $(`#month option[value="${i}"]`).prop('disabled', true)
+                }
+            }else {
+                $('#month option').prop('disabled', false);
+            }
+        }
+    </script>
 @endsection

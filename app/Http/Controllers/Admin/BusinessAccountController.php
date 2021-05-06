@@ -7,10 +7,12 @@ use App\Http\Requests\MassDestroyBusinessAccountRequest;
 use App\Http\Requests\StoreBusinessAccountRequest;
 use App\Http\Requests\UpdateBusinessAccountRequest;
 use App\Models\BusinessAccount;
+use App\Models\Employee;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class BusinessAccountController extends Controller
 {
@@ -95,6 +97,54 @@ class BusinessAccountController extends Controller
         BusinessAccount::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function mostActive(Request $request)
+    {
+        if ($request->ajax()) {
+            //request params
+            $year = $request->input('year', date('Y'));
+            $month = $request->input('month', date('m'));
+            $bsId = $request->input('bs_id', '');
+
+            $bsAccount = BusinessAccount::findOrFail($bsId);
+
+            $query  = $bsAccount->load('employees')->employees;
+
+//            $query->select(sprintf('%s.*', (new Employee())->table));
+
+//            dd($query);
+
+            $table = Datatables::of($query);
+
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('emp_id', function ($row) {
+                return $row->emp_id ? $row->emp_id : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+            $table->editColumn('contact', function ($row) {
+                return $row->contact ? $row->contact : '';
+            });
+
+            $table->editColumn('genid', function ($row) {
+                return $row->GenId ? $row->GenId : '';
+            });
+
+            $table->editColumn('check_ins', function ($row) use ($month, $year) {
+                return $row->monthlyAttendedTimes($month, $year) ?? '';
+            });
+
+            $table->rawColumns(['name']);
+
+            return $table->make(true);
+        }
     }
 
     public function storeMedia(Request $request)

@@ -84,4 +84,12 @@ class Employee extends Model
     {
         return 'https://quickscan.brancetech.com/assets/img/people/'.$potrait;
     }
+
+    public function monthlyAttendedTimes($month, $year)
+    {
+        return $this->attendance()
+            ->whereYear('date', $year)
+            ->whereMonth('date',$month)
+            ->get()->count();
+    }
 }
