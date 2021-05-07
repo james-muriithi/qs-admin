@@ -33,7 +33,7 @@
                         </a>&nbsp;<i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <i class="fa fa-home"></i>&nbsp;
+                        <i class="fa fa-user"></i>&nbsp;
                         <a class="parent-item" href="{{route('admin.employees.index')}}">
                             {{ trans('cruds.employee.title') }}
                         </a>&nbsp;<i class="fa fa-angle-right">

@@ -35,7 +35,7 @@ class EmployeeController extends Controller
 
         $bsids = BusinessAccount::all()->pluck('BS_Name', 'BS_ID')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.employees.create', compact('bsids'));
+        return view('admin.employees.create1', compact('bsids'));
     }
 
     public function store(StoreEmployeeRequest $request)
@@ -55,7 +55,7 @@ class EmployeeController extends Controller
 
         $employee->load('organisation');
 
-        return view('admin.employees.edit', compact('bsids', 'employee'));
+        return view('admin.employees.edit1', compact('bsids', 'employee'));
     }
 
     public function update(UpdateEmployeeRequest $request, Employee $employee)
