@@ -22,8 +22,11 @@ class EmployeeController extends Controller
         abort_if(Gate::denies('employee_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $employees = Employee::with(['organisation'])->get();
+        $paginatedEmployees = Employee::query()
+            ->with(['organisation'])
+            ->paginate(20);
 
-        return view('admin.employees.index', compact('employees'));
+        return view('admin.employees.index1', compact('employees', 'paginatedEmployees'));
     }
 
     public function create()
@@ -68,7 +71,7 @@ class EmployeeController extends Controller
 
         $employee->load('organisation');
 
-        return view('admin.employees.show', compact('employee'));
+        return view('admin.employees.show1', compact('employee'));
     }
 
     public function destroy(Employee $employee)
