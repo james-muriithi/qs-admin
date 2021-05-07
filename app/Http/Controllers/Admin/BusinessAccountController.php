@@ -40,7 +40,7 @@ class BusinessAccountController extends Controller
 
         BusinessAccount::create($request->all());
 
-        return redirect()->route('admin.business-accounts.index');
+        return redirect()->route('admin.business-accounts.index')->with('success', 'Organisation created successfully');
     }
 
     public function edit(BusinessAccount $businessAccount)
@@ -71,7 +71,7 @@ class BusinessAccountController extends Controller
             }
         }
 
-        return redirect()->route('admin.business-accounts.index');
+        return redirect()->route('admin.business-accounts.index')->with('success', 'Organisation updated successfully');
     }
 
     public function show(BusinessAccount $businessAccount)

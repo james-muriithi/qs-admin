@@ -45,7 +45,7 @@ class BusinessLocationController extends Controller
         }
         $businessLocation = BusinessLocation::create($request->all());
 
-        return redirect()->route('admin.business-locations.index');
+        return redirect()->route('admin.business-locations.index')->with('success', 'Organisation location created successfully');
     }
 
     public function edit(BusinessLocation $businessLocation)
@@ -79,7 +79,7 @@ class BusinessLocationController extends Controller
             }
         }
 
-        return redirect()->route('admin.business-locations.index');
+        return redirect()->route('admin.business-locations.index')->with('success', 'Organisation location updated successfully');
     }
 
     public function show(BusinessLocation $businessLocation)
