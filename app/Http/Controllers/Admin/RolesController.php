@@ -20,7 +20,7 @@ class RolesController extends Controller
 
         $roles = Role::with(['permissions'])->get();
 
-        return view('admin.roles.index', compact('roles'));
+        return view('admin.roles.index1', compact('roles'));
     }
 
     public function create()
@@ -29,7 +29,7 @@ class RolesController extends Controller
 
         $permissions = Permission::all()->pluck('title', 'id');
 
-        return view('admin.roles.create', compact('permissions'));
+        return view('admin.roles.create1', compact('permissions'));
     }
 
     public function store(StoreRoleRequest $request)
@@ -48,7 +48,7 @@ class RolesController extends Controller
 
         $role->load('permissions');
 
-        return view('admin.roles.edit', compact('permissions', 'role'));
+        return view('admin.roles.edit1', compact('permissions', 'role'));
     }
 
     public function update(UpdateRoleRequest $request, Role $role)
