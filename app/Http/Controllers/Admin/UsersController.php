@@ -24,7 +24,7 @@ class UsersController extends Controller
 
         $users = User::with(['roles', 'media'])->get();
 
-        return view('admin.users.index', compact('users'));
+        return view('admin.users.index1', compact('users'));
     }
 
     public function create()
@@ -33,7 +33,7 @@ class UsersController extends Controller
 
         $roles = Role::all()->pluck('title', 'id');
 
-        return view('admin.users.create', compact('roles'));
+        return view('admin.users.create1', compact('roles'));
     }
 
     public function store(StoreUserRequest $request)
@@ -41,7 +41,7 @@ class UsersController extends Controller
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
         if ($request->input('photo', false)) {
-            $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
+            $user->addMedia(storage_path('app/public/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
         }
 
         if ($media = $request->input('ck-media', false)) {
@@ -59,7 +59,7 @@ class UsersController extends Controller
 
         $user->load('roles');
 
-        return view('admin.users.edit', compact('roles', 'user'));
+        return view('admin.users.edit1', compact('roles', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
@@ -71,7 +71,7 @@ class UsersController extends Controller
                 if ($user->photo) {
                     $user->photo->delete();
                 }
-                $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
+                $user->addMedia(storage_path('app/public/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
             }
         } elseif ($user->photo) {
             $user->photo->delete();

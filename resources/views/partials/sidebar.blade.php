@@ -61,11 +61,16 @@
                     </li>
                 @endcan
                 @can('user_management_access')
-                    <li class="nav-item">
+                    <?php
+                    $active = request()->is("admin/permissions") || request()->is("admin/permissions/*") ||
+                        request()->is("admin/roles") || request()->is("admin/roles/*") || request()->is("admin/users") ||
+                        request()->is("admin/users/*") || request()->is('profile/password') || request()->is('profile/password/*');
+                    ?>
+                    <li class="nav-item {{$active ? 'active open':''}}">
                         <a href="#" class="nav-link nav-toggle"><i class="material-icons">group</i>
                             <span class="title">
                                 {{ trans('cruds.userManagement.title') }}
-                            </span><span class="arrow"></span></a>
+                            </span><span class="arrow {{$active ? 'open':''}}"></span></a>
                         <ul class="sub-menu">
                             @can('permission_access')
                                 <li class="nav-item {{ request()->is("admin/permissions") || request()->is("admin/permissions/*") ? "active" : "" }}">
