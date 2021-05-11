@@ -64,7 +64,7 @@
                     <?php
                     $active = request()->is("admin/permissions") || request()->is("admin/permissions/*") ||
                         request()->is("admin/roles") || request()->is("admin/roles/*") || request()->is("admin/users") ||
-                        request()->is("admin/users/*") || request()->is('profile/password') || request()->is('profile/password/*');
+                        request()->is("admin/users/*");
                     ?>
                     <li class="nav-item {{$active ? 'active open':''}}">
                         <a href="#" class="nav-link nav-toggle"><i class="material-icons">group</i>
@@ -103,7 +103,7 @@
                 @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
                     @can('profile_password_edit')
                         <li class="nav-item {{ request()->is('profile/password') || request()->is('profile/password/*') ? "active" : "" }}">
-                            <a href="{{ route("admin.attendances.index") }}" class="nav-link nav-toggle">
+                            <a href="{{ route("profile.password.edit") }}" class="nav-link nav-toggle">
                                 <i class="fa-fw fas fa-key"></i>
                                 <span class="title">{{ trans('global.change_password') }}</span>
                             </a>
