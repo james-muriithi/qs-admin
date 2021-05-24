@@ -42,10 +42,12 @@ class UserCreateNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = (env('APP_ENV') == 'local' ? env('APP_URL') : 'https://devs.brancetech.com')
+            . '/userVerification/'.$this->user->verification_token;
         return (new MailMessage())
             ->line(trans('global.verifyYourUser'))
             ->action(trans('global.clickHereToVerify'),
-                route('userVerification', $this->user->verification_token))
+                $url)
             ->line(trans('global.thankYouForUsingOurApplication'));
     }
 

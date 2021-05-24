@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class OrgUser extends Model
 {
-    use HasFactory, Notifiable, Queueable, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes;
 
     protected $table = 'org_users';
 
