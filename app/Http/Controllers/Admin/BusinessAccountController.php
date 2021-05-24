@@ -7,10 +7,12 @@ use App\Http\Requests\MassDestroyBusinessAccountRequest;
 use App\Http\Requests\StoreBusinessAccountRequest;
 use App\Http\Requests\UpdateBusinessAccountRequest;
 use App\Models\BusinessAccount;
-use App\Models\Employee;
+use App\Models\OrgUser;
+use App\Notifications\UserCreateNotification;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -38,7 +40,19 @@ class BusinessAccountController extends Controller
     {
         $request->merge(['Access_Code' => sha1($request->input('Access_Code'))]);
 
-        BusinessAccount::create($request->all());
+        $businessAccount = BusinessAccount::create($request->all());
+
+        $orgUser = OrgUser::create([
+            'username' => $businessAccount->BS_ID,
+            'bs_id' => $businessAccount->BS_ID,
+            'name' => $businessAccount->BS_Name,
+            'verification_token' => Str::random(60),
+            'email' => $businessAccount->BS_Email,
+            'role_id' => 1,
+            'approved' => 1,
+        ]);
+
+        $orgUser->notify(new UserCreateNotification($orgUser));
 
         return redirect()->route('admin.business-accounts.index')->with('success', 'Organisation created successfully');
     }
