@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyBusinessAccountRequest;
 use App\Http\Requests\StoreBusinessAccountRequest;
 use App\Http\Requests\UpdateBusinessAccountRequest;
+use App\Mail\ConfirmAccount;
 use App\Models\BusinessAccount;
 use App\Models\OrgUser;
 use App\Notifications\UserCreateNotification;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,9 +52,11 @@ class BusinessAccountController extends Controller
             'email' => $businessAccount->BS_Email,
             'role_id' => 1,
             'approved' => 1,
+            'is_admin' => 1,
         ]);
 
-        $orgUser->notify(new UserCreateNotification($orgUser));
+//        $orgUser->notify(new UserCreateNotification($orgUser));
+        Mail::to($orgUser->email)->send(new ConfirmAccount($orgUser));
 
         return redirect()->route('admin.business-accounts.index')->with('success', 'Organisation created successfully');
     }

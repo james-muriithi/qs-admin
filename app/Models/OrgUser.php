@@ -27,5 +27,6 @@ class OrgUser extends Model
         'created_at',
         'updated_at',
         'deleted_at',
+        'is_admin'
     ];
 }
