@@ -102,7 +102,7 @@
                         </div>
                     </div>
 
-                    <div class="card">
+                    <div class="card d-none">
                         <div class="card-head">
                             <header>Work Progress</header>
                         </div>
@@ -204,8 +204,8 @@
                                     );
                                     ?>
                                     <div class="row mb-3">
-                                        <div class="col-12 col-md-6 text-end d-flex"></div>
-                                        <div class="col-12 col-md-6 text-end d-flex">
+                                        <div class="col-12 col-md-4 text-end d-flex"></div>
+                                        <div class="col-10 col-md-6 text-end d-flex">
                                             <select name="year" id="year" class="form-control">
                                                 <option value="" disabled>--Select Year--</option>
                                                 @foreach($years as $year)
@@ -220,6 +220,9 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                        <div class="col-2 text-end d-flex">
+                                            <input type="text" class="form-control" disabled id="total" value="0">
                                         </div>
                                     </div>
                                     <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Employee">
@@ -339,7 +342,25 @@
                 orderCellsTop: true,
                 order: [[ 5, 'desc' ]],
                 pageLength: 10,
+                drawCallback: function () {
+                    var api = this.api();
+                    $('input#total').val(api.column( 5, {page:'current'} ).data().sum())
+                }
             };
+
+            $.fn.dataTable.Api.register( 'sum()', function ( ) {
+                return this.flatten().reduce( function ( a, b ) {
+                    if ( typeof a === 'string' ) {
+                        a = a.replace(/[^\d.-]/g, '') * 1;
+                    }
+                    if ( typeof b === 'string' ) {
+                        b = b.replace(/[^\d.-]/g, '') * 1;
+                    }
+
+                    return a + b;
+                }, 0 );
+            } );
+
             let table = $('.datatable-Employee').DataTable(dtOverrideGlobals);
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
                 $($.fn.dataTable.tables(true)).DataTable()
@@ -355,7 +376,8 @@
                 }
             });
             $('#year').on('change', disableMonths)
-            disableMonths()
+            disableMonths();
+
         });
 
         function disableMonths(){
