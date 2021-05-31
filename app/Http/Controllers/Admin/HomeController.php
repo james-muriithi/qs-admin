@@ -118,7 +118,7 @@ class HomeController
         }
 
         $settings4 = [
-            'chart_title'           => 'Today Attendance',
+            'chart_title'           => 'Today',
             'chart_type'            => 'number_block',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\Attendance',

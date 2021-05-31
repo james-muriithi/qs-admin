@@ -28,7 +28,7 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="l-bg-green info-icon mt-2">
-                                                <i class="fa fa-toggle-on pull-right col-orange font-30"></i>
+                                                <i class="fa fa-toggle-on col-blue pull-right font-30"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -60,7 +60,7 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="col-teal info-icon mt-2">
-                                                <i class="fa fa-user-secret pull-left card-icon font-30"></i>
+                                                <i class="fa fa-user-secret col-gray pull-left card-icon font-30"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -191,7 +191,7 @@
                     </div>
                     <div class="card-body ">
                         <div class="row">
-                            <ul class="docListWindow small-slimscroll-style">
+                            <ul class="docListWindow">
                                 @forelse($settings9['data'] as $entry)
                                     <li>
                                         <div class="prog-avatar">
