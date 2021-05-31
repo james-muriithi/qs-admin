@@ -23,12 +23,12 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col mt-0">
+                                        <div class="col-8 mt-0">
                                             <h4 class="info-box-title">{{ $settings1['chart_title'] }}</h4>
                                         </div>
-                                        <div class="col-auto">
-                                            <div class="l-bg-green info-icon">
-                                                <i class="fa fa-users pull-left col-orange font-30"></i>
+                                        <div class="col-4">
+                                            <div class="l-bg-green info-icon mt-2">
+                                                <i class="fa fa-toggle-on pull-right col-orange font-30"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -38,16 +38,16 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col mt-0">
+                                        <div class="col-8 mt-0">
                                             <h4 class="info-box-title">{{ $settings2['chart_title'] }}</h4>
                                         </div>
-                                        <div class="col-auto">
-                                            <div class="col-indigo info-icon">
-                                                <i class="fa fa-book pull-left card-icon font-30"></i>
+                                        <div class="col-4">
+                                            <div class="col-indigo info-icon mt-2">
+                                                <i class="fa fa-users pull-left card-icon font-30"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3 info-box-title">{{ number_format($settings1['total_number']) }}</h1>
+                                    <h1 class="mt-1 mb-3 info-box-title">{{ number_format($settings2['total_number']) }}</h1>
                                 </div>
                             </div>
                         </div>
@@ -55,12 +55,12 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col mt-0">
+                                        <div class="col-8 mt-0">
                                             <h4 class="info-box-title">{{ $settings3['chart_title'] }}</h4>
                                         </div>
-                                        <div class="col-auto">
-                                            <div class="col-teal info-icon">
-                                                <i class="fa fa-user pull-left card-icon font-30"></i>
+                                        <div class="col-4">
+                                            <div class="col-teal info-icon mt-2">
+                                                <i class="fa fa-user-secret pull-left card-icon font-30"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -70,12 +70,12 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col mt-0">
+                                        <div class="col-8 mt-0">
                                             <h4 class="info-box-title">{{ $settings4['chart_title'] }}</h4>
                                         </div>
-                                        <div class="col-auto">
-                                            <div class="col-pink info-icon">
-                                                <i class="fa fa-coffee pull-left card-icon font-30"></i>
+                                        <div class="col-4">
+                                            <div class="col-pink info-icon mt-2">
+                                                <i class="fa fa-qrcode pull-left card-icon font-30"></i>
                                             </div>
                                         </div>
                                     </div>

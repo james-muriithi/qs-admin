@@ -10,7 +10,7 @@ class HomeController
     public function index()
     {
         $settings1 = [
-            'chart_title'           => 'Organisations',
+            'chart_title'           => 'Accounts',
             'chart_type'            => 'number_block',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\BusinessAccount',
