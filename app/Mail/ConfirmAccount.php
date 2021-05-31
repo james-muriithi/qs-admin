@@ -29,7 +29,7 @@ class ConfirmAccount extends Mailable
      */
     public function build()
     {
-        $url = (env('APP_ENV') == 'local' ? env('APP_URL') : 'https://devs.brancetech.com')
+        $url = (env('APP_ENV') == 'local' ? env('APP_URL') : 'https://quickscan.brancetech.com')
             . '/userVerification/'.$this->user->verification_token;
 
         return $this->subject($this->subject)
