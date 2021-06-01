@@ -73,7 +73,7 @@ class BusinessAccountController extends Controller
         $businessAccount->update($request->all());
 
         $folder = $path = env('APP_ENV') == 'local' ? Storage::disk('public')->path('uploads').'/' :
-            '/home/u675959526/domains/quickscan.brancetech.com/public/assets/img/logos/';
+            '/home/u675959526/public_html/quickscan/public/assets/img/logos/';
 
         if ($request->input('BS_Logo', false)) {
             if (!$businessAccount->BS_Logo || $request->input('BS_Logo') !== $businessAccount->BS_Logo) {
@@ -185,7 +185,7 @@ class BusinessAccountController extends Controller
         }
 
         $path = env('APP_ENV') == 'local' ? Storage::disk('public')->path('uploads') :
-            '/home/u675959526/domains/quickscan.brancetech.com/public/assets/img/logos/';
+            '/home/u675959526/public_html/quickscan/public/assets/img/logos/';
 
         try {
             if (!file_exists($path)) {
