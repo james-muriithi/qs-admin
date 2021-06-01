@@ -185,7 +185,7 @@ class BusinessAccountController extends Controller
         }
 
         $path = env('APP_ENV') == 'local' ? Storage::disk('public')->path('uploads') :
-            '/home/oyaacoke/quickscan.brancetech.com/assets/img/logos/';
+            '/home/u675959526/domains/quickscan.brancetech.com/assets/img/logos/';
 
         try {
             if (!file_exists($path)) {
