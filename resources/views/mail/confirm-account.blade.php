@@ -186,7 +186,7 @@
                 <tr>
                     <td bgcolor="#7c8297" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                         <h2 style="font-size: 20px; font-weight: 400; color: #ccc; margin: 0;">Need more help?</h2>
-                        <p style="margin: 0;"><a href="#" target="_blank" style="color: #0d1d36;">We&rsquo;re here to help you out</a></p>
+                        <p style="margin: 0;"><a href="https://brancetech.com/contact.html" target="_blank" style="color: #0d1d36;">We&rsquo;re here to help you out</a></p>
                     </td>
                 </tr>
             </table>
