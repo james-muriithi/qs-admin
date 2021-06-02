@@ -2,6 +2,7 @@
 @section('styles')
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css" integrity="sha512-OtwMKauYE8gmoXusoKzA/wzQoh7WThXJcJVkA29fHP58hBF7osfY0WLCIZbwkeL9OgRCxtAfy17Pn3mndQ4PZQ==" crossorigin="anonymous" />
     <link href="{{asset('css/buttons.dataTables.min.css')}}" rel="stylesheet" />
     <style>
         .fr .pagination{
@@ -11,6 +12,7 @@
             height: 350px;
             width: 100%;
         }
+
     </style>
 @endsection
 @section('content')
@@ -48,7 +50,23 @@
                                     </div>
                                 </div>
                                 <div class="card-body ">
-
+                                    <div class="row mb-3">
+                                        <div class="col-12 col-md-6 text-end d-flex"></div>
+                                        <div class="col-10 col-md-6 text-end d-flex">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <select name="bsid" id="bsid" class="form-control">
+                                                        @foreach($bsids as $id => $name)
+                                                            <option value="{{$id}}">{{$name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-6">
+                                                    <input type="text" id="daterange" name="range" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="table-responsive">
                                         <table class=" table table-bordered table-striped table-hover datatable datatable-BusinessAccount">
                                             <thead>
@@ -86,55 +104,10 @@
                                                 <th>
                                                     {{ trans('cruds.attendance.fields.status') }}
                                                 </th>
-                                                <th>
-                                                    &nbsp;
-                                                </th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($attendances as $key => $attendance)
-                                                <tr data-entry-id="{{ $attendance->id }}">
-                                                    <td>
-                                                        {{ $loop->iteration }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $attendance->bsid->BS_ID ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $attendance->bsid->BS_Name ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $attendance->employee->emp_id ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $attendance->employee->name ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $attendance->date ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $attendance->time_in ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $attendance->time_out ?? '' }}
-                                                    </td>
-                                                    <td title="{{$attendance->area_info}}">
-                                                        <a rel="noopener noreferrer" target="_blank" href="https://www.google.com/maps?q={{ $attendance->location ?? '' }}">
-                                                            {{ $attendance->location ?? '' }}
-                                                        </a>
-                                                    </td>
-{{--                                                    <td>--}}
-{{--                                                        {{ $attendance->hours_in ?? '' }}--}}
-{{--                                                    </td>--}}
-                                                    <td>
-                                                        {{ $attendance->status ?? '' }}
-                                                    </td>
-                                                    <td>
 
-                                                    </td>
-
-                                                </tr>
-                                            @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -161,12 +134,73 @@
     <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js" integrity="sha512-+ruHlyki4CepPr07VklkX/KM5NXdD16K1xVwSva5VqOVbsotyCQVKEwdQ1tAeo3UkHCXfSMtKU/mZpKjYqkxZA==" crossorigin="anonymous"></script>
     <script>
-        $(document).ready(function (){
-            $(".datatable-BusinessAccount").DataTable({
-                dom: "Bfrtip",
+        $(function () {
+            let _token = $('meta[name="csrf-token"]').attr('content')
+            let dtOverrideGlobals = {
                 buttons: ["copy", "csv", "excel", "pdf", "print"],
+                dom: "Bfrtip",
+                processing: true,
+                serverSide: true,
+                retrieve: true,
+                aaSorting: [],
+                ajax: {
+                    headers: {'x-csrf-token': _token},
+                    url: "{{ route('admin.attendances.index') }}",
+                    data: function (data){
+                        data.bs_id = $('#bsid').val();
+                        data.range = $('#daterange').val();
+                    }
+                },
+                columns: [
+                    {data: 'DT_RowIndex'},
+                    { data: 'bsid_bsid', name: 'bsid.BS_ID' },
+                    { data: 'bsid.bs_name', name: 'bsid.BS_Name' },
+                    { data: 'employeeid_employeeid', name: 'employee.employeeid' },
+                    { data: 'employeeid.name', name: 'employee.name' },
+                    { data: 'date', name: 'date' },
+                    { data: 'time_in', name: 'time_in' },
+                    { data: 'time_out', name: 'time_out' },
+                    { data: 'location', name: 'location' },
+                    { data: 'status', name: 'status' },
+                ],
+                orderCellsTop: true,
+                order: [[ 1, 'desc' ]],
+                pageLength: 10,
+            };
+            let table = $('.datatable-BusinessAccount').DataTable(dtOverrideGlobals);
+            $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
+                $($.fn.dataTable.tables(true)).DataTable()
+                    .columns.adjust();
             });
-        })
+
+            $('#bsid').on('change', function (){
+                const range = $('#daterange').val();
+                const bsid = $('#bsid').val();
+
+                if (range || bsid){
+                    table.ajax.reload()
+                }
+            });
+
+            flatpickr("#daterange", {
+                mode: "range",
+                maxDate: "today",
+                onOpen: function (selectedDates, dateStr, instance) {
+                    instance.setDate(instance.input.value, false);
+                },
+                onClose: function(){
+                    if ($('#daterange').val()){
+                        table.ajax.reload()
+                    }
+                }
+            });
+
+        });
+
+        $(document).ready(function (){
+
+        });
     </script>
 @endsection

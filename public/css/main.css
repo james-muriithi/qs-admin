@@ -87,7 +87,7 @@ textarea {
   border: none;
 }
 
-textarea:focus, input:focus {
+textarea:focus, input:focus:not('.form-control') {
   border-color: transparent !important;
 }
 
