@@ -33,6 +33,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('business-accounts/most-active', 'BusinessAccountController@mostActive')->name('business-accounts.mostActive');
     Route::resource('business-accounts', 'BusinessAccountController');
 
+    // Business Users
+
+    Route::group(['as' => 'business-users.', 'prefix' =>  'business-users'],function (){
+        Route::delete('{org_user}', 'BusinessUserController@destroy')->name('destroy');
+        Route::post('status/{org_user}', 'BusinessUserController@status')->name('status');
+    });
+
     // Employee
     Route::delete('employees/destroy', 'EmployeeController@massDestroy')->name('employees.massDestroy');
     Route::post('employees/parse-csv-import', 'EmployeeController@parseCsvImport')->name('employees.parseCsvImport');

@@ -29,4 +29,9 @@ class OrgUser extends Model
         'deleted_at',
         'is_admin'
     ];
+
+    public function roles()
+    {
+        return $this->belongsTo(OrgRole::class, 'role_id');
+    }
 }

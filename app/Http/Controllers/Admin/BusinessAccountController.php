@@ -9,7 +9,6 @@ use App\Http\Requests\UpdateBusinessAccountRequest;
 use App\Mail\ConfirmAccount;
 use App\Models\BusinessAccount;
 use App\Models\OrgUser;
-use App\Notifications\UserCreateNotification;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -96,7 +95,7 @@ class BusinessAccountController extends Controller
     {
         abort_if(Gate::denies('business_account_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $businessAccount->load('businessLocations');
+        $businessAccount->load('businessLocations', 'users');
 
         return view('admin.businessAccounts.show1', compact('businessAccount'));
     }

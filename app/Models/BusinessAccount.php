@@ -56,6 +56,11 @@ class BusinessAccount extends Model
         return $this->hasMany(Employee::class, 'BS_ID', 'BS_ID');
     }
 
+    public function users()
+    {
+        return $this->hasMany(OrgUser::class, 'bs_id', 'BS_ID');
+    }
+
     public function getDateCreatedAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;

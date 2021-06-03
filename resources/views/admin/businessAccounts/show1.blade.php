@@ -1,6 +1,12 @@
 @extends('layouts.admin1')
 @section('styles')
+    @parent
+    <link href="{{asset('css/buttons.dataTables.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('css/modal.css')}}" rel="stylesheet" />
     <style>
+        .pagination{
+            float: right;
+        }
         .qr-image img{
             height: 350px;
             width: 100%;
@@ -302,6 +308,8 @@
                     </div>
                 </div>
             </div>
+
+            @include('admin.businessAccounts.inc.users')
         </div>
     </div>
 
