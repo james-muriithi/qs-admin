@@ -15,6 +15,7 @@ class Employee extends Model
     public const GENDER_SELECT = [
         'Male'   => 'Male',
         'Female' => 'Female',
+        'Other'  => 'Other',
     ];
 
     public $hidden = [
